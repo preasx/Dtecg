@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,46 +59,49 @@
     <select id="choice">
       <option value="Selling">Sell</option>
       <option value="Renting">Rent</option>
-    </select><label for="name">Name and Surname</label>
-<input type="text" id="name" required />
+    </select>
 
-<label for="age">Age</label>
-<input type="number" id="age" required />
+    <label for="name">Name and Surname</label>
+    <input type="text" id="name" required />
 
-<label for="gender">Gender</label>
-<select id="gender">
-  <option value="Male">Male</option>
-  <option value="Female">Female</option>
-  <option value="Other">Other</option>
-</select>
+    <label for="age">Age</label>
+    <input type="number" id="age" required />
 
-<label for="phone">Phone Number</label>
-<input type="tel" id="phone" required />
+    <label for="gender">Gender</label>
+    <select id="gender">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
 
-<label for="email">Email</label>
-<input type="email" id="email" required />
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" required />
 
-<label for="item">Item Name</label>
-<input type="text" id="item" required />
+    <label for="email">Email</label>
+    <input type="email" id="email" required />
 
-<label for="price">Price (in Rands)</label>
-<input type="number" id="price" required />
+    <label for="item">Item Name</label>
+    <input type="text" id="item" required />
 
-<label for="info">Additional Info</label>
-<textarea id="info" rows="4"></textarea>
+    <label for="price">Price (in Rands)</label>
+    <input type="number" id="price" required />
 
-<p style="margin-top:1rem;font-weight:500;color:#4b5563">
-  Please remember to attach the following files manually in the email:
-</p>
-<ul style="color:#374151">
-  <li>Photo of your ID or student card</li>
-  <li>Clear photo of your face</li>
-  <li>Photo of the item you want to sell or rent</li>
-</ul>
+    <label for="info">Additional Info</label>
+    <textarea id="info" rows="4"></textarea>
 
-<button type="submit">Submit via Email</button>
+    <p style="margin-top:1rem;font-weight:500;color:#4b5563">
+      Please remember to attach the following files manually in the email:
+    </p>
+    <ul style="color:#374151">
+      <li>Photo of your ID or student card</li>
+      <li>Clear photo of your face</li>
+      <li>Photo of the item you want to sell or rent</li>
+    </ul>
 
-  </form>  <script>
+    <button type="submit">Submit via Email</button>
+  </form>
+
+  <script>
     document.getElementById('listingForm').addEventListener('submit', function(event) {
       event.preventDefault();
 
@@ -114,8 +118,14 @@
       const subject = `${choice} Request: ${item}`;
       const body = `Dear DTech Services,%0D%0A%0D%0AI would like to submit the following item for ${choice.toLowerCase()}.%0D%0A%0D%0A-- PERSONAL DETAILS --%0D%0AName and Surname: ${name}%0D%0AAge: ${age}%0D%0AGender: ${gender}%0D%0APhone Number: ${phone}%0D%0AEmail: ${email}%0D%0A%0D%0A-- ITEM DETAILS --%0D%0AItem Name: ${item}%0D%0APrice: R${price}%0D%0AAdditional Info: ${info}%0D%0A%0D%0A-- ATTACHMENTS REQUIRED --%0D%0A- Photo of your ID or student card%0D%0A- Photo of yourself (face visible)%0D%0A- Photo of the item%0D%0A%0D%0AThank you!`;
 
-      const mailtoLink = `mailto: dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+      const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
       window.location.href = mailtoLink;
+
+      // Open the external URL shortly after
+      setTimeout(() => {
+        window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
+      }, 1000); // You can change the delay if needed
     });
-  </script></body>
-  </html>
+  </script>
+</body>
+</html>
