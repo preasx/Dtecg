@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,25 +26,40 @@
       font-size: 2rem;
     }
     main {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 0 1rem;
+    }
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      margin-bottom: 2rem;
     }
     .card {
       background: white;
       padding: 1.5rem;
-      margin-bottom: 1.5rem;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       text-align: center;
     }
+    .card h2 {
+      margin-bottom: 1rem;
+    }
     .card a {
-      display: block;
+      display: inline-block;
       margin-top: 0.5rem;
-      font-size: 1.2rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
       text-decoration: none;
-      color: #2563eb;
+      color: white;
+      background-color: #2563eb;
+      border-radius: 8px;
       font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .card a:hover {
+      background-color: #1d4ed8;
     }
     .contact {
       background: #e5e7eb;
@@ -51,6 +67,20 @@
       text-align: center;
       border-radius: 12px;
       font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      text-align: center;
+      padding-bottom: 2rem;
+    }
+    .footer-links a {
+      color: #2563eb;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -60,24 +90,33 @@
     <h1>DTech Services</h1>
   </header>
   <main>
-    <div class="card">
-      <h2>Sell or Rent Out Your Items</h2>
-      <a href="in.html">Start Listing</a>
-    </div>
-    <div class="card">
-      <h2>Rent Items</h2>
-      <a href="sell.html">Browse Rentals</a>
-    </div>
-    <div class="card">
-      <h2>Buy Second-Hand Items</h2>
-      <a href="buy.html">Browse Items for Sale</a>
+    <div class="grid">
+      <div class="card">
+        <h2>Sell or Rent Out Your Items</h2>
+        <a href="in.html">Start Listing</a>
+      </div>
+      <div class="card">
+        <h2>Rent Items</h2>
+        <a href="sell.html">Browse Rentals</a>
+      </div>
+      <div class="card">
+        <h2>Buy Second-Hand Items</h2>
+        <a href="buy.html">Browse Items</a>
+      </div>
+      <div class="card">
+        <h2>Our Services</h2>
+        <a href="sev.html">View Services</a>
+      </div>
     </div>
     <div class="contact">
       <p>Need help or have questions?</p>
       <p>Email: support@dtechservices.co.za</p>
       <p>WhatsApp: +27 61 234 5678</p>
     </div>
+    <div class="footer-links">
+      <a href="terms.html">Terms and Conditions</a>
+    </div>
   </main>
-<script type='text/javascript' src='//conductorhimselfwhipped.com/61/51/71/61517150132ff41edb773555ec988118.js'></script>
+  <script type='text/javascript' src='//conductorhimselfwhipped.com/61/51/71/61517150132ff41edb773555ec988118.js'></script>
 </body>
-  </html>
+</html>
