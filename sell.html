@@ -110,10 +110,8 @@
 
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      // Step 1: Open email app
       window.location.href = mailtoLink;
 
-      // Step 2: Open ad in new tab
       setTimeout(() => {
         window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
         document.getElementById("message").style.display = "block";
@@ -136,21 +134,21 @@
   <h1>Available Items for Rent</h1>
   <div class="item-grid">
     <div class="item">
-      <img src="item1.png" alt="Bluetooth Speaker" onclick="showImageModal(this.src)">
+      <img src="Rpics/item1.png" alt="Bluetooth Speaker" onclick="showImageModal(this.src)">
       <h2>Bluetooth Speaker</h2>
       <p class="price">R200 (Deposit)</p>
       <p>R20 per 24 hours</p>
       <button class="rent-button" onclick="rentItem('Bluetooth Speaker', 'R200 (Deposit), R20 per 24hrs')">Rent This Item</button>
     </div>
     <div class="item">
-      <img src="item2.png" alt="Camping Tent" onclick="showImageModal(this.src)">
+      <img src="Rpics/item2.png" alt="Camping Tent" onclick="showImageModal(this.src)">
       <h2>Camping Tent</h2>
       <p class="price">R500 (Deposit)</p>
       <p>R50 per 24 hours</p>
       <button class="rent-button" onclick="rentItem('Camping Tent', 'R500 (Deposit), R50 per 24hrs')">Rent This Item</button>
     </div>
     <div class="item">
-      <img src="item3.png" alt="Projector" onclick="showImageModal(this.src)">
+      <img src="Rpics/item3.png" alt="Projector" onclick="showImageModal(this.src)">
       <h2>Projector</h2>
       <p class="price">R800 (Deposit)</p>
       <p>R100 per 24 hours</p>
@@ -168,4 +166,4 @@
 
   <div id="message">Thank you! Please check your email app to complete your request.</div>
 </body>
-  </html>
+</html>
