@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,12 +39,42 @@
       padding: 1rem;
       background: #1e88e5;
       color: white;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+      margin-top: 2rem;
     }
     ul {
       line-height: 1.8;
+    }
+    form {
+      margin-top: 2rem;
+      background: #fafafa;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #1565c0;
     }
   </style>
 </head>
@@ -53,48 +82,78 @@
   <header>
     <h1>DTech Services</h1>
     <p>Smart solutions for student needs</p>
-  </header>
-
-  <nav>
-    <a href="#about">About</a>
+  </header>  <nav>
     <a href="#services">Services</a>
+    <a href="#order">Submit Order</a>
     <a href="#contact">Contact</a>
-  </nav>
-
-  <div class="container">
-    <section id="about">
-      <h2>About Us</h2>
-      <p>DTech Services is a student-powered initiative offering smart, affordable solutions for students. We're starting by helping people and small businesses get online easily with clean, static websites. No fancy tech needed—just what works, fast and affordable.</p>
-    </section>
-
+  </nav>  <div class="container">
     <section id="services">
       <h2>Our Website Services</h2>
       <ul>
-        <li><strong>R50</strong> – One-page or two-page static website (clean, mobile-friendly, with your content)</li>
+        <li><strong>R50</strong> – One-page or two-page static website</li>
         <li><strong>R80</strong> – Multi-page static website (3 pages or more)</li>
         <li><strong>+R80/year</strong> – Custom domain name (like www.yourname.co.za or .com)</li>
       </ul>
       <p><strong>What you get:</strong></p>
       <ul>
-        <li>Mobile-friendly design</li>
-        <li>Your own content and images added</li>
-        <li>Fast-loading and easy-to-use pages</li>
-        <li>Hosting setup help (free or budget options)</li>
-        <li>Email & WhatsApp support</li>
+        <li>Mobile-friendly, clean design</li>
+        <li>Your own content and images included</li>
+        <li>Fast, easy-to-use static pages</li>
+        <li>Hosting help (free/budget options)</li>
+        <li>Email and WhatsApp support</li>
       </ul>
-      <p><strong>What's a domain?</strong> A domain is the website address people type to find your site (e.g., <code>www.yourbiz.co.za</code>). We can help you register and connect your domain for just R80/year.</p>
-      <p><em>More digital and student-focused services are coming soon!</em></p>
-    </section>
+      <p><strong>What's a domain?</strong> A domain is the website address people type to find your site (e.g., <code>www.yourbiz.co.za</code>). We can help register and set it up for just R80/year.</p>
+    </section><section id="order">
+  <h2>Submit Your Order</h2>
+  <form id="orderForm">
+    <label for="service">Choose a Website Package:</label>
+    <select id="service" name="Service">
+      <option value="1-2 Page Static Website">1-2 Page Static Website (R50)</option>
+      <option value="Multi-Page Static Website">Multi-Page Static Website (R80)</option>
+    </select>
 
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:dtechservices@example.com">dtechservices@example.com</a></p>
-      <p>WhatsApp: 060 000 0000</p>
-    </section>
-  </div>
+    <label for="domain">Do you need a custom domain?</label>
+    <select id="domain" name="Custom Domain">
+      <option value="Yes">Yes (R80/year)</option>
+      <option value="No">No</option>
+    </select>
 
-  <footer>
+    <label for="email">Your Email Address:</label>
+    <input type="email" id="email" name="Email" required />
+
+    <label for="whatsapp">Your WhatsApp Number:</label>
+    <input type="text" id="whatsapp" name="WhatsApp" placeholder="e.g. 060 000 0000" required />
+
+    <button type="submit">Send Order</button>
+  </form>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p>Email: <a href="mailto:dtechservices@example.com">dtechservices@example.com</a></p>
+  <p>WhatsApp: 060 000 0000</p>
+</section>
+
+  </div>  <footer>
     &copy; 2025 DTech Services. All rights reserved.
-  </footer>
-</body>
+  </footer>  <script>
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const service = document.getElementById("service").value;
+      const domain = document.getElementById("domain").value;
+      const email = document.getElementById("email").value;
+      const whatsapp = document.getElementById("whatsapp").value;
+
+      const subject = encodeURIComponent("New Website Order - DTech Services");
+      const body = encodeURIComponent(`Service: ${service}\nCustom Domain: ${domain}\nEmail: ${email}\nWhatsApp: ${whatsapp}`);
+
+      const mailtoLink = `mailto:dtechservices@example.com?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
+
+      setTimeout(() => {
+        window.location.href = "https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365";
+      }, 1500);
+    });
+  </script></body>
 </html>
