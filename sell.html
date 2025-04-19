@@ -106,16 +106,20 @@
   <script>
     function rentItem(itemName, itemPrice) {
       const subject = `Rental Request: ${itemName}`;
-      const body = `Hello DTech Services,%0D%0A%0D%0AI would like to rent the following item:%0D%0A%0D%0AItem Name: ${itemName}%0D%0APrice: ${itemPrice}%0D%0A%0D%0AFull Name: [Enter your full name here]%0D%0AWhatsApp Number: [Enter your WhatsApp number here]%0D%0A%0D%0ANote: I will attach a picture of my ID or Student Card as requested.%0D%0A%0D%0AThank you,%0D%0A[Your Name Here]`;
+      const body = `Hello DTech Services,%0D%0A%0D%0AI would like to rent the following item:%0D%0A%0D%0AItem Name: ${itemName}%0D%0APrice: ${itemPrice}%0D%0A%0D%0AFull Name: Your Name%0D%0AWhatsApp Number: 0000000000%0D%0A%0D%0ANote: I will attach a picture of my ID or Student Card as requested.%0D%0A%0D%0AThank you,%0D%0AYour Name`;
 
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
       window.location.href = mailtoLink;
 
+      // Open ad link first
       setTimeout(() => {
         window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
-        document.getElementById("message").style.display = "block";
       }, 1000);
+
+      // Then open thank you page in same tab
+      setTimeout(() => {
+        window.location.href = "thankyou.html";
+      }, 1500);
     }
 
     function showImageModal(src) {
@@ -154,7 +158,6 @@
       <p>R100 per 24 hours</p>
       <button class="rent-button" onclick="rentItem('Projector', 'R800 (Deposit), R100 per 24hrs')">Rent This Item</button>
     </div>
-        </div>
     <div class="item">
       <img src="Rpics/item4.png" alt="Pro" onclick="showImageModal(this.src)">
       <h2>Projector</h2>
