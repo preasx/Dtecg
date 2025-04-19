@@ -120,13 +120,13 @@
 
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      // Open email client first
+      // Open the email app
       window.location.href = mailtoLink;
 
-      // Then open ad after short delay
+      // Redirect to thank you page after 3 seconds
       setTimeout(() => {
-        window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
-      }, 1000);
+        window.location.href = "thankyou.html";
+      }, 3000);
     });
   </script>
 </body>
