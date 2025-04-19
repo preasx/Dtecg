@@ -109,14 +109,16 @@
       const body = `Hello DTech Services,%0D%0A%0D%0AI am interested in buying the following item:%0D%0A%0D%0AItem: ${itemName}%0D%0APrice: ${itemPrice}%0D%0A%0D%0AFull Name: [Enter your name here]%0D%0AWhatsApp Number: [Enter your WhatsApp number here]%0D%0A%0D%0APlease note: My ID or Student Card is attached.%0D%0A%0D%0AThank you,%0D%0A[Your Name Here]`;
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      // Step 1: Open the default email app
+      // Open email app
       window.location.href = mailtoLink;
 
-      // Step 2: Open the ad link shortly after
+      // Show thank-you message
+      document.getElementById("message").style.display = "block";
+
+      // Redirect to thankyou.html (which will open the ad)
       setTimeout(() => {
-        window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
-        document.getElementById("message").style.display = "block";
-      }, 1000);
+        window.open("thankyou.html", "_blank");
+      }, 1500);
     }
 
     function showImageModal(src) {
