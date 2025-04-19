@@ -120,13 +120,22 @@
 
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      // Open the ad first (won't be blocked)
+      // Create a hidden anchor and trigger a click to launch email client
+      const tempLink = document.createElement('a');
+      tempLink.href = mailtoLink;
+      tempLink.style.display = 'none';
+      document.body.appendChild(tempLink);
+
+      // Open the ad in a new tab
       window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
 
-      // Then open the email client after a short delay
+      // Immediately trigger mailto
+      tempLink.click();
+
+      // Clean up
       setTimeout(() => {
-        window.location.href = mailtoLink;
-      }, 500); // slight delay to avoid browser blocking
+        document.body.removeChild(tempLink);
+      }, 1000);
     });
   </script>
 </body>
