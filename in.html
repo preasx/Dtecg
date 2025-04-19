@@ -120,21 +120,12 @@
 
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      // Create a hidden anchor and trigger a click to launch email client
-      const tempLink = document.createElement('a');
-      tempLink.href = mailtoLink;
-      tempLink.style.display = 'none';
-      document.body.appendChild(tempLink);
+      // Open email client first
+      window.location.href = mailtoLink;
 
-      // Open the ad in a new tab
-      window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
-
-      // Immediately trigger mailto
-      tempLink.click();
-
-      // Clean up
+      // Then open ad after short delay
       setTimeout(() => {
-        document.body.removeChild(tempLink);
+        window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
       }, 1000);
     });
   </script>
