@@ -122,19 +122,19 @@
       <img src="Spics/item1.png" alt="Bluetooth Speaker" onclick="showImageModal(this.src)">
       <h2>Bluetooth Speaker</h2>
       <p class="price">R350</p>
-      <button class="buy-button" onclick="openBuyForm('Bluetooth Speaker', 'R350')">Buy This Item</button>
+      <button class="buy-button" onclick="openBuyForm('Bluetooth Speaker', 'R350', 'Us75uwh6')">Buy This Item</button>
     </div>
     <div class="item">
       <img src="Spics/item2.png" alt="Camping Tent" onclick="showImageModal(this.src)">
       <h2>Camping Tent</h2>
       <p class="price">R900</p>
-      <button class="buy-button" onclick="openBuyForm('Camping Tent', 'R900')">Buy This Item</button>
+      <button class="buy-button" onclick="openBuyForm('Camping Tent', 'R900', 'Rt93bqz7')">Buy This Item</button>
     </div>
     <div class="item">
       <img src="Spics/item3.png" alt="Projector" onclick="showImageModal(this.src)">
       <h2>Projector</h2>
       <p class="price">R1500</p>
-      <button class="buy-button" onclick="openBuyForm('Projector', 'R1500')">Buy This Item</button>
+      <button class="buy-button" onclick="openBuyForm('Projector', 'R1500', 'Xz18lpn4')">Buy This Item</button>
     </div>
   </div>
 
@@ -185,10 +185,12 @@
   <script>
     let selectedItemName = '';
     let selectedItemPrice = '';
+    let selectedItemCode = '';
 
-    function openBuyForm(name, price) {
+    function openBuyForm(name, price, code) {
       selectedItemName = name;
       selectedItemPrice = price;
+      selectedItemCode = code;
       document.getElementById('buyModal').style.display = 'block';
     }
 
@@ -213,14 +215,14 @@
     function submitPurchase() {
       const isFirstTime = document.getElementById('isFirstTime').value;
 
-      let subject = `Purchase Request: ${selectedItemName}`;
-      let body = `Hello DTech Services,%0D%0A%0D%0AI am interested in buying the following item:%0D%0AItem: ${selectedItemName}%0D%0APrice: ${selectedItemPrice}%0D%0A%0D%0A`;
+      let subject = `Purchase Request: ${selectedItemName} [${selectedItemCode}]`;
+      let body = `Hello DTech Services,%0D%0A%0D%0AI would like to purchase the following item:%0D%0AItem: ${selectedItemName}%0D%0AItem Code: ${selectedItemCode}%0D%0APrice: ${selectedItemPrice}%0D%0A%0D%0A`;
 
       if (isFirstTime === 'yes') {
         const name = document.getElementById('buyerName').value;
         const email = document.getElementById('buyerEmail').value;
         const whatsapp = document.getElementById('buyerWhatsApp').value;
-        const generatedPassword = Math.random().toString(36).slice(2, 10);
+        const generatedPassword = Math.random().toString(36).substring(2, 10);
         body += `Full Name: ${name}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0AGenerated Password: ${generatedPassword}%0D%0A%0D%0A(Please save your password for next time.)%0D%0A%0D%0A*Attach your ID/Student card and picture of yourself manually in the email.*`;
       } else {
         const password = document.getElementById('buyerPassword').value;
