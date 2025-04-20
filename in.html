@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sell or Rent Item - DTech Services</title>
   <style>
     body {
@@ -134,11 +134,15 @@
 
     hasPasswordSelect.addEventListener('change', function () {
       const value = this.value;
+      const personalInputs = personalInfoSection.querySelectorAll('input, select');
 
       if (value === 'yes') {
         personalInfoSection.style.display = 'none';
         passwordWrapper.style.display = 'block';
         attachmentsList.innerHTML = "<li>Photo of the item you want to sell or rent</li>";
+
+        personalInputs.forEach(input => input.required = false);
+        document.getElementById('password').required = true;
       } else {
         personalInfoSection.style.display = 'block';
         passwordWrapper.style.display = 'none';
@@ -147,6 +151,9 @@
           <li>Clear photo of your face</li>
           <li>Photo of the item you want to sell or rent</li>
         `;
+
+        personalInputs.forEach(input => input.required = true);
+        document.getElementById('password').required = false;
       }
     });
 
