@@ -55,6 +55,12 @@
 <body>
   <h1>List Your Item to Sell or Rent</h1>
   <form id="listingForm">
+    <label for="hasPassword">Do you already have a password?</label>
+    <select id="hasPassword">
+      <option value="no">No, this is my first time</option>
+      <option value="yes">Yes, I already have one</option>
+    </select>
+
     <label for="choice">Are you selling or renting?</label>
     <select id="choice">
       <option value="Selling">Sell</option>
@@ -92,7 +98,7 @@
     <p style="margin-top:1rem;font-weight:500;color:#4b5563">
       Please remember to attach the following files manually in the email:
     </p>
-    <ul style="color:#374151">
+    <ul style="color:#374151" id="attachmentsList">
       <li>Photo of your ID or student card</li>
       <li>Clear photo of your face</li>
       <li>Photo of the item you want to sell or rent</li>
@@ -102,9 +108,32 @@
   </form>
 
   <script>
+    function generatePassword(length = 8) {
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return password;
+    }
+
+    document.getElementById('hasPassword').addEventListener('change', function() {
+      const attachmentsList = document.getElementById('attachmentsList');
+      if (this.value === "yes") {
+        attachmentsList.innerHTML = "<li>Photo of the item you want to sell or rent</li>";
+      } else {
+        attachmentsList.innerHTML = `
+          <li>Photo of your ID or student card</li>
+          <li>Clear photo of your face</li>
+          <li>Photo of the item you want to sell or rent</li>
+        `;
+      }
+    });
+
     document.getElementById('listingForm').addEventListener('submit', function(event) {
       event.preventDefault();
 
+      const hasPassword = document.getElementById('hasPassword').value;
       const choice = document.getElementById('choice').value;
       const name = document.getElementById('name').value;
       const age = document.getElementById('age').value;
@@ -115,15 +144,21 @@
       const price = document.getElementById('price').value;
       const info = document.getElementById('info').value;
 
+      let passwordNote = "";
+      let attachmentsText = "- Photo of the item";
+
+      if (hasPassword === "no") {
+        const newPassword = generatePassword();
+        passwordNote = `%0D%0A%0D%0A-- GENERATED PASSWORD --%0D%0AUse this password for next time: ${newPassword}%0D%0ASave it somewhere safe.%0D%0A`;
+        attachmentsText = `- Photo of your ID or student card%0D%0A- Photo of yourself (face visible)%0D%0A- Photo of the item`;
+      }
+
       const subject = `${choice} Request: ${item}`;
-      const body = `Dear DTech Services,%0D%0A%0D%0AI would like to submit the following item for ${choice.toLowerCase()}.%0D%0A%0D%0A-- PERSONAL DETAILS --%0D%0AName and Surname: ${name}%0D%0AAge: ${age}%0D%0AGender: ${gender}%0D%0APhone Number: ${phone}%0D%0AEmail: ${email}%0D%0A%0D%0A-- ITEM DETAILS --%0D%0AItem Name: ${item}%0D%0APrice: R${price}%0D%0AAdditional Info: ${info}%0D%0A%0D%0A-- ATTACHMENTS REQUIRED --%0D%0A- Photo of your ID or student card%0D%0A- Photo of yourself (face visible)%0D%0A- Photo of the item%0D%0A%0D%0AThank you!`;
+      const body = `Dear DTech Services,%0D%0A%0D%0AI would like to submit the following item for ${choice.toLowerCase()}.%0D%0A%0D%0A-- PERSONAL DETAILS --%0D%0AName and Surname: ${name}%0D%0AAge: ${age}%0D%0AGender: ${gender}%0D%0APhone Number: ${phone}%0D%0AEmail: ${email}%0D%0A%0D%0A-- ITEM DETAILS --%0D%0AItem Name: ${item}%0D%0APrice: R${price}%0D%0AAdditional Info: ${info}%0D%0A%0D%0A-- ATTACHMENTS REQUIRED --%0D%0A${attachmentsText}${passwordNote}%0D%0A%0D%0AThank you!`;
 
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-      // Open the email app
       window.location.href = mailtoLink;
 
-      // Redirect to thank you page after 3 seconds
       setTimeout(() => {
         window.location.href = "thankyou.html";
       }, 30);
