@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -135,44 +136,77 @@
       <p>R20 per 24 hours</p>
       <button class="rent-button" onclick="showForm('Bluetooth Speaker', 'R200 (Deposit), R20 per 24hrs')">Rent This Item</button>
     </div>
-    <!-- Add more items as needed -->
-  </div>  <div id="imgModal" class="modal">
+    <!-- Add more items here if needed -->
+  </div>
+
+  <div id="imgModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <div class="modal-content">
       <img id="modalImage" src="" alt="Full View">
     </div>
-  </div>  <div id="formSection" class="modal">
+  </div>
+
+  <div id="formSection" class="modal">
     <div class="form-content">
       <span class="close" onclick="closeForm()">&times;</span>
       <h2>Rent Item</h2>
       <form id="rentForm" onsubmit="submitForm(event)">
         <input type="hidden" id="selectedItem" name="item">
-        <input type="hidden" id="selectedPrice" name="price"><div class="form-group">
-      <label>Is this your first time using DTech?</label>
-      <select id="isFirstTime" onchange="toggleFields()">
-        <option value="yes">Yes</option>
-        <option value="no">No, I have a DTech password</option>
-      </select>
-    </div>
+        <input type="hidden" id="selectedPrice" name="price">
 
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="email" required>
-    </div>
-    <div class="form-group">
-      <label>WhatsApp Number</label>
-      <input type="text" id="whatsapp" required>
-    </div>
-    <div class="form-group" id="passwordGroup" style="display:none">
-      <label>DTech Password</label>
-      <input type="text" id="password">
-    </div>
+        <div class="form-group">
+          <label>Is this your first time using DTech?</label>
+          <select id="isFirstTime" onchange="toggleFields()">
+            <option value="yes">Yes</option>
+            <option value="no">No, I have a DTech password</option>
+          </select>
+        </div>
 
-    <button type="submit" class="submit-btn">Send Request</button>
-  </form>
-</div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp Number</label>
+          <input type="text" id="whatsapp" required>
+        </div>
 
-  </div>  <div id="message">Thank you! Please check your email app to complete your request.</div>  <script>
+        <div id="firstTimeFields">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="firstName">
+          </div>
+          <div class="form-group">
+            <label>Surname</label>
+            <input type="text" id="surname">
+          </div>
+          <div class="form-group">
+            <label>Age</label>
+            <input type="number" id="age">
+          </div>
+          <div class="form-group">
+            <label>Upload Photo of ID or Student Card</label>
+            <input type="file" id="idCardPhoto" accept="image/*">
+          </div>
+          <div class="form-group">
+            <label>Upload Your Photo</label>
+            <input type="file" id="userPhoto" accept="image/*">
+          </div>
+        </div>
+
+        <div class="form-group" id="passwordGroup" style="display:none">
+          <label>DTech Password</label>
+          <input type="text" id="password">
+        </div>
+
+        <button type="submit" class="submit-btn">Send Request</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="message">Thank you! Please check your email app to complete your request.</div>
+
+  <script>
     function showImageModal(src) {
       document.getElementById("modalImage").src = src;
       document.getElementById("imgModal").style.display = "block";
@@ -190,7 +224,16 @@
     }
     function toggleFields() {
       const isFirstTime = document.getElementById("isFirstTime").value;
-      document.getElementById("passwordGroup").style.display = isFirstTime === "no" ? "block" : "none";
+      const passwordGroup = document.getElementById("passwordGroup");
+      const firstTimeFields = document.getElementById("firstTimeFields");
+
+      if (isFirstTime === "no") {
+        passwordGroup.style.display = "block";
+        firstTimeFields.style.display = "none";
+      } else {
+        passwordGroup.style.display = "none";
+        firstTimeFields.style.display = "block";
+      }
     }
     function submitForm(event) {
       event.preventDefault();
@@ -200,11 +243,19 @@
       const whatsapp = document.getElementById("whatsapp").value;
       const password = document.getElementById("password").value;
 
-      const subject = `Rental Request: ${item}`;
+      const isFirstTime = document.getElementById("isFirstTime").value;
       let body = `Hello DTech,%0D%0A%0D%0AI would like to rent the following item:%0D%0AItem: ${item}%0D%0APrice: ${price}%0D%0A%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}`;
-      if (password) {
+
+      if (isFirstTime === "no") {
         body += `%0D%0ADTech Password: ${password}`;
+      } else {
+        const fname = document.getElementById("firstName").value;
+        const sname = document.getElementById("surname").value;
+        const age = document.getElementById("age").value;
+        body += `%0D%0AFirst Name: ${fname}%0D%0ASurname: ${sname}%0D%0AAge: ${age}%0D%0AID/Student Card Photo: Submitted%0D%0AUser Photo: Submitted`;
       }
+
+      const subject = `Rental Request: ${item}`;
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
       window.location.href = mailtoLink;
 
@@ -215,5 +266,6 @@
         window.location.href = "thankyou.html";
       }, 1500);
     }
-  </script></body>
+  </script>
+</body>
 </html>
