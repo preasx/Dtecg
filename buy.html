@@ -76,22 +76,33 @@
       background-color: rgba(0,0,0,0.8);
     }
     .modal-content {
+      background: white;
+      max-width: 400px;
       margin: 5% auto;
-      display: block;
-      max-width: 90%;
-      max-height: 80%;
-      border-radius: 8px;
+      padding: 2rem;
+      border-radius: 12px;
+      position: relative;
     }
-    .modal-content img {
+    .modal-content h3 {
+      margin-bottom: 1rem;
+    }
+    .modal-content label {
+      display: block;
+      margin-top: 1rem;
+    }
+    .modal-content input {
       width: 100%;
-      height: auto;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
     .close {
       position: absolute;
-      top: 20px;
-      right: 35px;
-      color: white;
-      font-size: 40px;
+      top: 15px;
+      right: 20px;
+      color: #000;
+      font-size: 28px;
       font-weight: bold;
       cursor: pointer;
     }
@@ -103,35 +114,6 @@
       display: none;
     }
   </style>
-  <script>
-    function buyItem(itemName, itemPrice) {
-      const subject = `Purchase Request: ${itemName}`;
-      const body = `Hello DTech Services,%0D%0A%0D%0AI am interested in buying the following item:%0D%0A%0D%0AItem: ${itemName}%0D%0APrice: ${itemPrice}%0D%0A%0D%0AFull Name: [Enter your name here]%0D%0AWhatsApp Number: [Enter your WhatsApp number here]%0D%0A%0D%0APlease note: My ID or Student Card is attached.%0D%0A%0D%0AThank you,%0D%0A[Your Name Here]`;
-      const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-      // Open email app
-      window.location.href = mailtoLink;
-
-      // Show thank-you message
-      document.getElementById("message").style.display = "block";
-
-      // Redirect to thankyou.html (which will open the ad)
-      setTimeout(() => {
-        window.open("thankyou.html", "_blank");
-      }, 1500);
-    }
-
-    function showImageModal(src) {
-      const modal = document.getElementById("imgModal");
-      const modalImg = document.getElementById("modalImage");
-      modal.style.display = "block";
-      modalImg.src = src;
-    }
-
-    function closeModal() {
-      document.getElementById("imgModal").style.display = "none";
-    }
-  </script>
 </head>
 <body>
   <h1>Available Items for Purchase</h1>
@@ -140,19 +122,54 @@
       <img src="Spics/item1.png" alt="Bluetooth Speaker" onclick="showImageModal(this.src)">
       <h2>Bluetooth Speaker</h2>
       <p class="price">R350</p>
-      <button class="buy-button" onclick="buyItem('Bluetooth Speaker', 'R350')">Buy This Item</button>
+      <button class="buy-button" onclick="openBuyForm('Bluetooth Speaker', 'R350')">Buy This Item</button>
     </div>
     <div class="item">
       <img src="Spics/item2.png" alt="Camping Tent" onclick="showImageModal(this.src)">
       <h2>Camping Tent</h2>
       <p class="price">R900</p>
-      <button class="buy-button" onclick="buyItem('Camping Tent', 'R900')">Buy This Item</button>
+      <button class="buy-button" onclick="openBuyForm('Camping Tent', 'R900')">Buy This Item</button>
     </div>
     <div class="item">
       <img src="Spics/item3.png" alt="Projector" onclick="showImageModal(this.src)">
       <h2>Projector</h2>
       <p class="price">R1500</p>
-      <button class="buy-button" onclick="buyItem('Projector', 'R1500')">Buy This Item</button>
+      <button class="buy-button" onclick="openBuyForm('Projector', 'R1500')">Buy This Item</button>
+    </div>
+  </div>
+
+  <!-- Buy Modal -->
+  <div id="buyModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>Buy Item</h3>
+      <label>Is this your first time?</label>
+      <select id="isFirstTime" onchange="toggleBuyerFields()">
+        <option value="yes">Yes - First Time</option>
+        <option value="no">No - I have my DTech password</option>
+      </select>
+
+      <div id="firstTimeFields">
+        <label>Full Name</label>
+        <input type="text" id="buyerName">
+        <label>Email</label>
+        <input type="email" id="buyerEmail">
+        <label>WhatsApp Number</label>
+        <input type="tel" id="buyerWhatsApp">
+        <label>Upload ID or Student Card (attach manually in email)</label>
+        <p style="font-size: 0.9rem;">Attach your ID/Student card in the email when it opens.</p>
+      </div>
+
+      <div id="returningFields" style="display:none">
+        <label>DTech Password</label>
+        <input type="text" id="buyerPassword">
+        <label>Email</label>
+        <input type="email" id="returningEmail">
+        <label>WhatsApp Number</label>
+        <input type="tel" id="returningWhatsApp">
+      </div>
+
+      <button onclick="submitPurchase()">Send Purchase Email</button>
     </div>
   </div>
 
@@ -164,5 +181,64 @@
   </div>
 
   <div id="message">Thank you! Please check your email app to complete your request.</div>
+
+  <script>
+    let selectedItemName = '';
+    let selectedItemPrice = '';
+
+    function openBuyForm(name, price) {
+      selectedItemName = name;
+      selectedItemPrice = price;
+      document.getElementById('buyModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('buyModal').style.display = 'none';
+      document.getElementById('imgModal').style.display = 'none';
+    }
+
+    function showImageModal(src) {
+      const modal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImage");
+      modal.style.display = "block";
+      modalImg.src = src;
+    }
+
+    function toggleBuyerFields() {
+      const isFirstTime = document.getElementById('isFirstTime').value;
+      document.getElementById('firstTimeFields').style.display = isFirstTime === 'yes' ? 'block' : 'none';
+      document.getElementById('returningFields').style.display = isFirstTime === 'no' ? 'block' : 'none';
+    }
+
+    function submitPurchase() {
+      const isFirstTime = document.getElementById('isFirstTime').value;
+
+      let subject = `Purchase Request: ${selectedItemName}`;
+      let body = `Hello DTech Services,%0D%0A%0D%0AI am interested in buying the following item:%0D%0AItem: ${selectedItemName}%0D%0APrice: ${selectedItemPrice}%0D%0A%0D%0A`;
+
+      if (isFirstTime === 'yes') {
+        const name = document.getElementById('buyerName').value;
+        const email = document.getElementById('buyerEmail').value;
+        const whatsapp = document.getElementById('buyerWhatsApp').value;
+        const generatedPassword = Math.random().toString(36).slice(2, 10);
+        body += `Full Name: ${name}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0AGenerated Password: ${generatedPassword}%0D%0A%0D%0A(Please save your password for next time.)%0D%0A%0D%0A*Attach your ID/Student card manually in the email.*`;
+      } else {
+        const password = document.getElementById('buyerPassword').value;
+        const email = document.getElementById('returningEmail').value;
+        const whatsapp = document.getElementById('returningWhatsApp').value;
+        body += `DTech Password: ${password}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}`;
+      }
+
+      const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+      window.location.href = mailtoLink;
+
+      document.getElementById("message").style.display = "block";
+      closeModal();
+
+      setTimeout(() => {
+        window.open("thankyou.html", "_blank");
+      }, 1500);
+    }
+  </script>
 </body>
 </html>
