@@ -50,6 +50,9 @@
     button:hover {
       background: #2563eb;
     }
+    #passwordWrapper {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -60,6 +63,11 @@
       <option value="no">No, this is my first time</option>
       <option value="yes">Yes, I already have one</option>
     </select>
+
+    <div id="passwordWrapper">
+      <label for="password">Enter your password</label>
+      <input type="text" id="password" placeholder="Enter your DTech password" />
+    </div>
 
     <label for="choice">Are you selling or renting?</label>
     <select id="choice">
@@ -117,20 +125,25 @@
       return password;
     }
 
-    document.getElementById('hasPassword').addEventListener('change', function() {
+    document.getElementById('hasPassword').addEventListener('change', function () {
+      const value = this.value;
       const attachmentsList = document.getElementById('attachmentsList');
-      if (this.value === "yes") {
+      const passwordWrapper = document.getElementById('passwordWrapper');
+
+      if (value === 'yes') {
         attachmentsList.innerHTML = "<li>Photo of the item you want to sell or rent</li>";
+        passwordWrapper.style.display = 'block';
       } else {
         attachmentsList.innerHTML = `
           <li>Photo of your ID or student card</li>
           <li>Clear photo of your face</li>
           <li>Photo of the item you want to sell or rent</li>
         `;
+        passwordWrapper.style.display = 'none';
       }
     });
 
-    document.getElementById('listingForm').addEventListener('submit', function(event) {
+    document.getElementById('listingForm').addEventListener('submit', function (event) {
       event.preventDefault();
 
       const hasPassword = document.getElementById('hasPassword').value;
@@ -143,6 +156,7 @@
       const item = document.getElementById('item').value;
       const price = document.getElementById('price').value;
       const info = document.getElementById('info').value;
+      const enteredPassword = document.getElementById('password').value;
 
       let passwordNote = "";
       let attachmentsText = "- Photo of the item";
@@ -151,6 +165,8 @@
         const newPassword = generatePassword();
         passwordNote = `%0D%0A%0D%0A-- GENERATED PASSWORD --%0D%0AUse this password for next time: ${newPassword}%0D%0ASave it somewhere safe.%0D%0A`;
         attachmentsText = `- Photo of your ID or student card%0D%0A- Photo of yourself (face visible)%0D%0A- Photo of the item`;
+      } else if (enteredPassword.trim() !== "") {
+        passwordNote = `%0D%0A%0D%0A-- YOUR PASSWORD --%0D%0A${enteredPassword}%0D%0A`;
       }
 
       const subject = `${choice} Request: ${item}`;
