@@ -136,7 +136,6 @@
       <p>R20 per 24 hours</p>
       <button class="rent-button" onclick="showForm('Bluetooth Speaker', 'R200 (Deposit), R20 per 24hrs')">Rent This Item</button>
     </div>
-    <!-- Add more items here if needed -->
   </div>
 
   <div id="imgModal" class="modal">
@@ -186,11 +185,11 @@
           </div>
           <div class="form-group">
             <label>Upload Photo of ID or Student Card</label>
-            <input type="file" id="idCardPhoto" accept="image/*">
+            <p style="color:#ef4444;font-size:0.9rem;">Please attach your student card or ID in the email after submitting.</p>
           </div>
           <div class="form-group">
             <label>Upload Your Photo</label>
-            <input type="file" id="userPhoto" accept="image/*">
+            <p style="color:#ef4444;font-size:0.9rem;">Please attach a photo of yourself in the email after submitting.</p>
           </div>
         </div>
 
@@ -211,17 +210,21 @@
       document.getElementById("modalImage").src = src;
       document.getElementById("imgModal").style.display = "block";
     }
+
     function closeModal() {
       document.getElementById("imgModal").style.display = "none";
     }
+
     function showForm(itemName, itemPrice) {
       document.getElementById("selectedItem").value = itemName;
       document.getElementById("selectedPrice").value = itemPrice;
       document.getElementById("formSection").style.display = "block";
     }
+
     function closeForm() {
       document.getElementById("formSection").style.display = "none";
     }
+
     function toggleFields() {
       const isFirstTime = document.getElementById("isFirstTime").value;
       const passwordGroup = document.getElementById("passwordGroup");
@@ -235,24 +238,42 @@
         firstTimeFields.style.display = "block";
       }
     }
+
+    function generatePassword(length = 8) {
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return password;
+    }
+
     function submitForm(event) {
       event.preventDefault();
       const item = document.getElementById("selectedItem").value;
       const price = document.getElementById("selectedPrice").value;
       const email = document.getElementById("email").value;
       const whatsapp = document.getElementById("whatsapp").value;
-      const password = document.getElementById("password").value;
-
       const isFirstTime = document.getElementById("isFirstTime").value;
-      let body = `Hello DTech,%0D%0A%0D%0AI would like to rent the following item:%0D%0AItem: ${item}%0D%0APrice: ${price}%0D%0A%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}`;
+
+      let body = `Hello DTech,%0D%0A%0D%0AI would like to rent the following item:%0D%0A`;
+      body += `Item: ${item}%0D%0APrice: ${price}%0D%0A%0D%0A`;
+      body += `Email: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0A`;
 
       if (isFirstTime === "no") {
-        body += `%0D%0ADTech Password: ${password}`;
+        const password = document.getElementById("password").value;
+        body += `DTech Password: ${password}`;
       } else {
         const fname = document.getElementById("firstName").value;
         const sname = document.getElementById("surname").value;
         const age = document.getElementById("age").value;
-        body += `%0D%0AFirst Name: ${fname}%0D%0ASurname: ${sname}%0D%0AAge: ${age}%0D%0AID/Student Card Photo: Submitted%0D%0AUser Photo: Submitted`;
+        const newPassword = generatePassword();
+        body += `First Name: ${fname}%0D%0ASurname: ${sname}%0D%0AAge: ${age}%0D%0A`;
+        body += `DTech Password (save this): ${newPassword}%0D%0A`;
+        body += `%0D%0A**Please remember to attach the following in this email:**%0D%0A`;
+        body += `- A clear photo of your ID or Student Card%0D%0A`;
+        body += `- A photo of yourself holding the ID or Student Card%0D%0A`;
+        body += `%0D%0ACopy and save your DTech password: ${newPassword}`;
       }
 
       const subject = `Rental Request: ${item}`;
