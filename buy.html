@@ -18,9 +18,9 @@
     }
     .item-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
     }
     .item {
@@ -32,10 +32,10 @@
     }
     .item img {
       width: 100%;
-      height: 180px;
+      height: 160px;
       object-fit: cover;
       border-radius: 8px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       cursor: pointer;
       transition: transform 0.2s ease;
     }
@@ -47,8 +47,13 @@
       margin: 0.5rem 0;
     }
     .item p {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #4b5563;
+    }
+    .desc {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      color: #374151;
     }
     .price {
       font-weight: bold;
@@ -90,7 +95,7 @@
       display: block;
       margin-top: 1rem;
     }
-    .modal-content input {
+    .modal-content input, .modal-content select {
       width: 100%;
       padding: 0.5rem;
       margin-top: 0.5rem;
@@ -118,24 +123,34 @@
 <body>
   <h1>Available Items for Purchase</h1>
   <div class="item-grid">
+
     <div class="item">
-      <img src="Spics/item1.png" alt="Bluetooth Speaker" onclick="showImageModal(this.src)">
+      <img src="Spics/item1.png" alt="Bluetooth Speaker 1" onclick="showImageModal(this.src)">
+      <img src="Spics/item1b.png" alt="Bluetooth Speaker 2" onclick="showImageModal(this.src)">
       <h2>Bluetooth Speaker</h2>
+      <p class="desc">Portable wireless speaker with deep bass and 10-hour battery life.</p>
       <p class="price">R350</p>
       <button class="buy-button" onclick="openBuyForm('Bluetooth Speaker', 'R350', 'Us75uwh6')">Buy This Item</button>
     </div>
+
     <div class="item">
-      <img src="Spics/item2.png" alt="Camping Tent" onclick="showImageModal(this.src)">
+      <img src="Spics/item2.png" alt="Camping Tent 1" onclick="showImageModal(this.src)">
+      <img src="Spics/item2b.png" alt="Camping Tent 2" onclick="showImageModal(this.src)">
       <h2>Camping Tent</h2>
+      <p class="desc">Spacious 2-person tent, waterproof and perfect for outdoor trips.</p>
       <p class="price">R900</p>
       <button class="buy-button" onclick="openBuyForm('Camping Tent', 'R900', 'Rt93bqz7')">Buy This Item</button>
     </div>
+
     <div class="item">
-      <img src="Spics/item3.png" alt="Projector" onclick="showImageModal(this.src)">
+      <img src="Spics/item3.png" alt="Projector 1" onclick="showImageModal(this.src)">
+      <img src="Spics/item3b.png" alt="Projector 2" onclick="showImageModal(this.src)">
       <h2>Projector</h2>
+      <p class="desc">HD projector suitable for movies, gaming and presentations.</p>
       <p class="price">R1500</p>
       <button class="buy-button" onclick="openBuyForm('Projector', 'R1500', 'Xz18lpn4')">Buy This Item</button>
     </div>
+
   </div>
 
   <!-- Buy Modal -->
@@ -176,7 +191,7 @@
   <div id="imgModal" class="modal" onclick="closeModal()">
     <span class="close">&times;</span>
     <div class="modal-content">
-      <img id="modalImage" src="" alt="Full View">
+      <img id="modalImage" src="" alt="Full View" style="width:100%; border-radius:8px;">
     </div>
   </div>
 
