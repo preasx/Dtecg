@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Word/Excel Assistance Session - DTech Services</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
+      padding: 2rem;
+      color: #1f2937;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .form-container {
+      background: white;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .submit-btn {
+      background-color: #2563eb;
+      color: white;
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Book Word/Excel Assistance</h1>
+  <div class="form-container">
+    <form id="bookingForm" onsubmit="sendBooking(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fullName" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label>WhatsApp Number</label>
+        <input type="text" id="whatsapp" required>
+      </div>
+      <div class="form-group">
+        <label>Select Assistance Needed</label>
+        <select id="serviceType" required>
+          <option value="">-- Select --</option>
+          <option value="Microsoft Word">Microsoft Word</option>
+          <option value="Microsoft Excel">Microsoft Excel</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Choose Session Date</label>
+        <input type="date" id="sessionDate" required>
+      </div>
+      <div class="form-group">
+        <label>Choose Session Time</label>
+        <input type="time" id="sessionTime" required>
+      </div>
+      <button type="submit" class="submit-btn">Send Booking Request</button>
+    </form>
+  </div>
+
+  <script>
+    function sendBooking(event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const whatsapp = document.getElementById('whatsapp').value;
+      const serviceType = document.getElementById('serviceType').value;
+      const sessionDate = document.getElementById('sessionDate').value;
+      const sessionTime = document.getElementById('sessionTime').value;
+
+      const subject = `Booking Request: ${serviceType} Assistance`;
+
+      const body = `Hello DTech,%0D%0A%0D%0AI would like to book a 1-hour session for assistance with:%0D%0A` +
+                   `Service Needed: ${serviceType}%0D%0A` +
+                   `Session Date: ${sessionDate}%0D%0ASession Time: ${sessionTime}%0D%0A%0D%0A` +
+                   `My Details:%0D%0AName: ${fullName}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0A%0D%0AThank you!`;
+
+      const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+      window.location.href = mailtoLink;
+    }
+  </script>
+
+</body>
+</html>
