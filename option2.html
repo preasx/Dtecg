@@ -107,11 +107,13 @@
 
       const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
-      // Save the mailto link into sessionStorage
-      sessionStorage.setItem('mailtoLink', mailtoLink);
+      // Open the default email app directly
+      window.location.href = mailtoLink;
 
-      // Redirect to thankyou.html
-      window.location.href = "thankyou.html";
+      // Redirect to the thank you page after a short delay to allow the email app to open
+      setTimeout(function() {
+        window.location.href = "thankyou.html";
+      }, 500); // 500ms delay
     }
   </script>
 
