@@ -12,51 +12,64 @@
       background: #f3f4f6;
       color: #1f2937;
     }
+
     h1 {
       text-align: center;
       margin-bottom: 2rem;
     }
+
     .book-container {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
+      justify-content: space-between;
       gap: 20px;
+      direction: rtl; /* Right to left layout */
     }
+
     .book-item {
       background-color: white;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       width: 48%;
+      min-height: 420px;
       padding: 1rem;
       text-align: center;
       transition: transform 0.3s ease;
     }
+
     .book-item:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
+
     .book-img {
       width: 100%;
-      max-height: 200px;
+      height: 220px;
       object-fit: cover;
       border-radius: 10px;
     }
+
     .book-info {
       margin-top: 1rem;
     }
+
     .book-info h3 {
-      font-size: 18px;
+      font-size: 20px;
       color: #333;
     }
+
     .book-info p {
-      font-size: 14px;
+      font-size: 15px;
       color: #555;
+      margin: 4px 0;
     }
+
     .book-price {
-      font-size: 16px;
+      font-size: 18px;
       color: #4CAF50;
       font-weight: bold;
       margin: 10px 0;
     }
+
     .buy-btn {
       background-color: #2563eb;
       color: white;
@@ -65,161 +78,159 @@
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
+
     .buy-btn:hover {
       background-color: #111827;
     }
-    /* Popup styles */
-    .popup {
+
+    /* Popup Form Styling */
+    .popup-overlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      inset: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 999;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
     }
-    .popup-content {
-      background-color: white;
+
+    .popup-form {
+      background: white;
       padding: 2rem;
       border-radius: 12px;
-      width: 400px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
+      direction: ltr;
     }
-    .popup-content h3 {
-      margin-bottom: 1rem;
+
+    .popup-form label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
     }
-    .popup-content input, .popup-content select, .popup-content button {
+
+    .popup-form input,
+    .popup-form select {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-      border-radius: 6px;
+      margin-top: 0.5rem;
       border: 1px solid #ccc;
-      font-size: 14px;
-    }
-    .popup-content button {
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    .popup-content button:hover {
-      background-color: #111827;
-    }
-    .close-popup {
-      background-color: #e60000;
-      color: white;
-      padding: 6px 12px;
       border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
     }
-    .close-popup:hover {
-      background-color: #d32f2f;
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .book-item {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Buy Your Textbooks</h1>
+  <h1>Buy Textbooks</h1>
 
   <div class="book-container">
-    <!-- Book 1 -->
-    <div class="book-item">
-      <img src="book1.jpg" alt="Book 1" class="book-img" />
+    <div class="book-item" data-title="Economics 101" data-price="R350" data-code="BOOK001">
+      <img src="book1.jpg" alt="Economics 101" class="book-img">
       <div class="book-info">
-        <h3>Book Title 1</h3>
-        <p>Author: Author Name</p>
-        <p class="book-price">R150</p>
-        <button class="buy-btn" onclick="openPopup('Book Title 1', 'R150')">Buy Now</button>
+        <h3>Economics 101</h3>
+        <p>6th Edition - Mohr</p>
+        <p class="book-price">R350</p>
+        <button class="buy-btn">Buy Now</button>
       </div>
     </div>
 
-    <!-- Book 2 -->
-    <div class="book-item">
-      <img src="book2.jpg" alt="Book 2" class="book-img" />
+    <div class="book-item" data-title="Business Management" data-price="R300" data-code="BOOK002">
+      <img src="book2.jpg" alt="Business Management" class="book-img">
       <div class="book-info">
-        <h3>Book Title 2</h3>
-        <p>Author: Author Name</p>
-        <p class="book-price">R200</p>
-        <button class="buy-btn" onclick="openPopup('Book Title 2', 'R200')">Buy Now</button>
+        <h3>Business Management</h3>
+        <p>Van Aardt & Bezuidenhout</p>
+        <p class="book-price">R300</p>
+        <button class="buy-btn">Buy Now</button>
       </div>
     </div>
+    <!-- Add more books here -->
   </div>
 
-  <!-- Popup Form -->
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h3>Enter Your Details to Buy</h3>
-      <form id="buyForm">
-        <input type="text" id="name" placeholder="Name and Surname" required />
-        <input type="number" id="age" placeholder="Age" required />
-        <input type="email" id="email" placeholder="Email" required />
-        <input type="tel" id="whatsapp" placeholder="WhatsApp Number" required />
-        <label for="pickup">Pick-Up Point:</label>
-        <select id="pickup" required>
-          <option value="2nd Ave">2nd Ave</option>
-          <option value="South Campus">South Campus</option>
-        </select>
-        <button type="submit">Submit</button>
-        <button type="button" class="close-popup" onclick="closePopup()">Cancel</button>
-      </form>
-    </div>
+  <div class="popup-overlay" id="popupOverlay">
+    <form class="popup-form" id="orderForm">
+      <button class="close-btn" type="button" onclick="closePopup()">×</button>
+      <h3>Complete Your Order</h3>
+      <input type="hidden" id="bookTitle" />
+      <input type="hidden" id="bookPrice" />
+      <input type="hidden" id="bookCode" />
+
+      <label for="fullname">Name & Surname</label>
+      <input type="text" id="fullname" required />
+
+      <label for="age">Age</label>
+      <input type="number" id="age" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+
+      <label for="whatsapp">WhatsApp Number</label>
+      <input type="tel" id="whatsapp" required />
+
+      <label for="pickup">Choose Pickup Point</label>
+      <select id="pickup" required>
+        <option value="">Select</option>
+        <option value="2nd Avenue">2nd Avenue Campus</option>
+        <option value="South Campus">South Campus</option>
+      </select>
+
+      <button type="submit" class="buy-btn" style="margin-top:1rem;">Send Order</button>
+    </form>
   </div>
 
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    // Initialize EmailJS
-    emailjs.init("user_GsQz23OPKXMqYP9cxBQ0v");
+    const popup = document.getElementById('popupOverlay');
+    const orderForm = document.getElementById('orderForm');
 
-    // Open the popup form
-    function openPopup(bookTitle, price) {
-      document.getElementById('popup').style.display = 'flex';
-      document.getElementById('buyForm').onsubmit = function (event) {
-        event.preventDefault();
-        const name = document.getElementById('name').value;
-        const age = document.getElementById('age').value;
-        const email = document.getElementById('email').value;
-        const whatsapp = document.getElementById('whatsapp').value;
-        const pickup = document.getElementById('pickup').value;
+    document.querySelectorAll('.buy-btn').forEach(button => {
+      button.addEventListener('click', function () {
+        const book = this.closest('.book-item');
+        document.getElementById('bookTitle').value = book.dataset.title;
+        document.getElementById('bookPrice').value = book.dataset.price;
+        document.getElementById('bookCode').value = book.dataset.code;
+        popup.style.display = 'flex';
+      });
+    });
 
-        const message = `
-          Book Title: ${bookTitle}
-          Price: ${price}
-          Name: ${name}
-          Age: ${age}
-          Email: ${email}
-          WhatsApp: ${whatsapp}
-          Pickup Point: ${pickup}
-        `;
-
-        // Send email with book and user details
-        const emailParams = {
-          to_email: 'dtech2services@gmail.com',
-          subject: `Purchase Request: ${bookTitle}`,
-          message: message,
-        };
-
-        emailjs.send('service_wejpfmd', 'template_qspvvvi', emailParams)
-          .then(function (response) {
-            console.log('Email sent successfully', response);
-            closePopup();
-            alert('Your purchase request has been submitted!');
-          }, function (error) {
-            console.log('Email failed', error);
-            alert('Something went wrong, please try again.');
-          });
-      };
-    }
-
-    // Close the popup
     function closePopup() {
-      document.getElementById('popup').style.display = 'none';
+      popup.style.display = 'none';
     }
+
+    orderForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById('bookTitle').value;
+      const price = document.getElementById('bookPrice').value;
+      const code = document.getElementById('bookCode').value;
+      const name = document.getElementById('fullname').value;
+      const age = document.getElementById('age').value;
+      const email = document.getElementById('email').value;
+      const whatsapp = document.getElementById('whatsapp').value;
+      const pickup = document.getElementById('pickup').value;
+
+      const subject = `Book Order: ${title}`;
+      const body = `Book: ${title} (${code})%0D%0APrice: ${price}%0D%0A%0D%0A-- Buyer Details --%0D%0AName: ${name}%0D%0AAge: ${age}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0APickup: ${pickup}%0D%0A%0D%0AThank you!`;
+
+      window.location.href = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+      closePopup();
+    });
   </script>
 </body>
 </html>
