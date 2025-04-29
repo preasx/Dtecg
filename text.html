@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -25,8 +24,7 @@
     }
     .card {
       background: white;
-      width: 90%;
-      max-width: 500px;
+      width: 300px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.08);
       overflow: hidden;
@@ -44,6 +42,9 @@
     }
     .card-content {
       padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     .card-content h3 {
       margin: 0;
@@ -51,7 +52,7 @@
       color: #1f2937;
     }
     .card-content p {
-      margin: 0.25rem 0;
+      margin: 0;
       font-size: 0.95rem;
       color: #4b5563;
     }
@@ -73,71 +74,69 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      width: 100%;
     }
     .buy-btn:hover {
       background: #1e40af;
-    }
+    }/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  color: #1f2937;
+}
+.modal-content label {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.modal-content input, .modal-content select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 0.3rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+.modal-content button {
+  margin-top: 1rem;
+  background: #10b981;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+}
+.close-btn {
+  margin-top: 0.5rem;
+  background: #ef4444;
+}
 
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    .modal-content {
-      background: white;
-      border-radius: 10px;
-      padding: 2rem;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    }
-    .modal-content h2 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
-      color: #1f2937;
-    }
-    .modal-content label {
-      display: block;
-      margin-top: 0.75rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    .modal-content input, .modal-content select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 0.3rem;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 0.95rem;
-    }
-    .modal-content button {
-      margin-top: 1rem;
-      background: #10b981;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-    }
-    .close-btn {
-      margin-top: 0.5rem;
-      background: #ef4444;
-    }
   </style>
 </head>
 <body>
   <h1>Available Textbooks</h1>
   <div class="grid">
-    <!-- Book Card 1 -->
     <div class="card">
       <img src="book1.jpg" alt="Book Cover" />
       <div class="card-content">
@@ -147,58 +146,49 @@
         <p class="price">R150</p>
         <button class="buy-btn" onclick="openForm('Business Management 101', 'R150', 'BM101')">Buy</button>
       </div>
-    </div>
-
-    <!-- Book Card 2 -->
-    <div class="card">
-      <img src="book2.jpg" alt="Book Cover" />
-      <div class="card-content">
-        <h3>Economics for SA Students</h3>
-        <p>6th Edition textbook by Mohr & Associates.</p>
-        <p class="code">Code: ECO1001</p>
-        <p class="price">R120</p>
-        <button class="buy-btn" onclick="openForm('Economics for SA Students', 'R120', 'ECO1001')">Buy</button>
-      </div>
-    </div>
+    </div><div class="card">
+  <img src="book2.jpg" alt="Book Cover" />
+  <div class="card-content">
+    <h3>Economics for SA Students</h3>
+    <p>6th Edition textbook by Mohr & Associates.</p>
+    <p class="code">Code: ECO1001</p>
+    <p class="price">R120</p>
+    <button class="buy-btn" onclick="openForm('Economics for SA Students', 'R120', 'ECO1001')">Buy</button>
   </div>
+</div>
 
-  <!-- Modal Form -->
-  <div class="modal" id="buyModal">
+  </div>  <!-- Modal Form -->  <div class="modal" id="buyModal">
     <div class="modal-content">
       <h2>Book Purchase Form</h2>
-      <form action="https://formsubmit.co/el/mihari" method="POST">
-        <input type="hidden" name="_subject" value="New Book Order">
+      <form id="purchaseForm" action="https://formsubmit.co/el/mihari" method="POST">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" id="bookTitle" name="Book Title">
-        <input type="hidden" id="bookCode" name="Book Code">
-        <input type="hidden" id="bookPrice" name="Price">
+        <input type="hidden" name="Book Title" id="bookTitle" />
+        <input type="hidden" name="Book Code" id="bookCode" />
+        <input type="hidden" name="Book Price" id="bookPrice" /><label for="fullName">Name & Surname</label>
+    <input type="text" id="fullName" name="Name" required />
 
-        <label for="fullName">Name & Surname</label>
-        <input type="text" name="Name" id="fullName" required />
+    <label for="age">Age</label>
+    <input type="number" id="age" name="Age" required />
 
-        <label for="age">Age</label>
-        <input type="number" name="Age" id="age" required />
+    <label for="email">Email</label>
+    <input type="email" id="email" name="Email" required />
 
-        <label for="email">Email</label>
-        <input type="email" name="Email" id="email" required />
+    <label for="whatsapp">WhatsApp Number</label>
+    <input type="tel" id="whatsapp" name="WhatsApp" required />
 
-        <label for="whatsapp">WhatsApp Number</label>
-        <input type="tel" name="WhatsApp" id="whatsapp" required />
+    <label for="pickup">Pickup Point</label>
+    <select id="pickup" name="Pickup Point" required>
+      <option value="">Select a point</option>
+      <option value="2nd Avenue">2nd Avenue</option>
+      <option value="South Campus">South Campus</option>
+    </select>
 
-        <label for="pickup">Pickup Point</label>
-        <select name="Pickup Point" id="pickup" required>
-          <option value="">Select a point</option>
-          <option value="2nd Avenue">2nd Avenue</option>
-          <option value="South Campus">South Campus</option>
-        </select>
+    <button type="button" onclick="submitAndRedirect()">Send Order</button>
+    <button type="button" class="close-btn" onclick="closeForm()">Cancel</button>
+  </form>
+</div>
 
-        <button type="submit">Send Order</button>
-        <button type="button" class="close-btn" onclick="closeForm()">Cancel</button>
-      </form>
-    </div>
-  </div>
-
-  <script>
+  </div>  <script>
     function openForm(title, price, code) {
       document.getElementById('buyModal').style.display = 'flex';
       document.getElementById('bookTitle').value = title;
@@ -209,6 +199,10 @@
     function closeForm() {
       document.getElementById('buyModal').style.display = 'none';
     }
-  </script>
-</body>
+
+    function submitAndRedirect() {
+      window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
+      document.getElementById('purchaseForm').submit();
+    }
+  </script></body>
 </html>
