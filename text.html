@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,215 +9,216 @@
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 2rem;
-      background: #f9fafb;
+      background: #f3f4f6;
       color: #1f2937;
-      direction: rtl;
     }
-
     h1 {
       text-align: center;
       margin-bottom: 2rem;
     }
-
-    .book-grid {
+    .book-container {
       display: flex;
+      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-direction: row-reverse;
+      gap: 20px;
     }
-
-    .book-card {
-      flex: 0 1 calc(50% - 1.5rem);
-      max-width: 300px;
-      background: white;
+    .book-item {
+      background-color: white;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 48%;
       padding: 1rem;
-      box-sizing: border-box;
+      text-align: center;
+      transition: transform 0.3s ease;
     }
-
-    .book-card img {
+    .book-item:hover {
+      transform: scale(1.05);
+    }
+    .book-img {
       width: 100%;
-      height: 200px;
+      max-height: 200px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 10px;
     }
-
     .book-info {
       margin-top: 1rem;
-      text-align: center;
     }
-
     .book-info h3 {
-      margin: 0;
-      font-size: 1.1rem;
-      color: #111827;
+      font-size: 18px;
+      color: #333;
     }
-
     .book-info p {
-      font-size: 0.95rem;
-      color: #6b7280;
+      font-size: 14px;
+      color: #555;
     }
-
-    .book-info .price {
+    .book-price {
+      font-size: 16px;
+      color: #4CAF50;
       font-weight: bold;
-      color: #10b981;
-      margin-top: 0.5rem;
+      margin: 10px 0;
     }
-
-    .book-info .code {
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
-
-    .buy-button {
-      margin-top: 1rem;
-      padding: 10px 20px;
+    .buy-btn {
       background-color: #2563eb;
       color: white;
+      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
-      font-size: 1rem;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-
-    .form-popup {
+    .buy-btn:hover {
+      background-color: #111827;
+    }
+    /* Popup styles */
+    .popup {
       display: none;
       position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup-content {
+      background-color: white;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      z-index: 999;
-      max-width: 400px;
-      width: 100%;
+      width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
-
-    .form-popup input, select {
+    .popup-content h3 {
+      margin-bottom: 1rem;
+    }
+    .popup-content input, .popup-content select, .popup-content button {
       width: 100%;
-      margin-top: 10px;
       padding: 10px;
+      margin: 10px 0;
       border-radius: 6px;
-      border: 1px solid #d1d5db;
+      border: 1px solid #ccc;
+      font-size: 14px;
     }
-
-    .form-popup button {
-      margin-top: 1rem;
-      padding: 10px;
-      width: 100%;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .submit-btn {
+    .popup-content button {
       background-color: #2563eb;
       color: white;
+      border: none;
+      cursor: pointer;
     }
-
-    .close-btn {
-      background-color: #e5e7eb;
-      color: #111827;
+    .popup-content button:hover {
+      background-color: #111827;
     }
-
-    @media (max-width: 640px) {
-      .book-card {
-        flex: 1 1 100%;
-      }
+    .close-popup {
+      background-color: #e60000;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .close-popup:hover {
+      background-color: #d32f2f;
     }
   </style>
 </head>
 <body>
-  <h1>Available Textbooks</h1>
+  <h1>Buy Your Textbooks</h1>
 
-  <div class="book-grid">
+  <div class="book-container">
     <!-- Book 1 -->
-    <div class="book-card">
-      <img src="book1.jpg" alt="Economics Textbook">
+    <div class="book-item">
+      <img src="book1.jpg" alt="Book 1" class="book-img" />
       <div class="book-info">
-        <h3>Economics for SA Students</h3>
-        <p>6th Edition by Mohr. Core economics content.</p>
-        <div class="price">R120</div>
-        <div class="code">Code: ECO1001-06</div>
-        <button class="buy-button" onclick="openForm('Economics for SA Students', '120', 'ECO1001-06')">Buy Now</button>
+        <h3>Book Title 1</h3>
+        <p>Author: Author Name</p>
+        <p class="book-price">R150</p>
+        <button class="buy-btn" onclick="openPopup('Book Title 1', 'R150')">Buy Now</button>
       </div>
     </div>
 
     <!-- Book 2 -->
-    <div class="book-card">
-      <img src="book2.jpg" alt="Management Textbook">
+    <div class="book-item">
+      <img src="book2.jpg" alt="Book 2" class="book-img" />
       <div class="book-info">
-        <h3>New Venture Management</h3>
-        <p>Entrepreneurship 6th Ed. Ideal for BMM students.</p>
-        <div class="price">R100</div>
-        <div class="code">Code: BMM1001-06</div>
-        <button class="buy-button" onclick="openForm('New Venture Management', '100', 'BMM1001-06')">Buy Now</button>
+        <h3>Book Title 2</h3>
+        <p>Author: Author Name</p>
+        <p class="book-price">R200</p>
+        <button class="buy-btn" onclick="openPopup('Book Title 2', 'R200')">Buy Now</button>
       </div>
     </div>
   </div>
 
-  <!-- Form Popup -->
-  <div class="form-popup" id="buyForm">
-    <h3>Buy Textbook</h3>
-    <input type="text" id="name" placeholder="Name and Surname" required />
-    <input type="number" id="age" placeholder="Age" required />
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="tel" id="whatsapp" placeholder="WhatsApp Number" required />
-    <select id="pickup">
-      <option value="">Select Pickup Point</option>
-      <option value="2nd Avenue">2nd Avenue</option>
-      <option value="South Campus">South Campus</option>
-    </select>
-    <button class="submit-btn" onclick="submitForm()">Send</button>
-    <button class="close-btn" onclick="closeForm()">Cancel</button>
+  <!-- Popup Form -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>Enter Your Details to Buy</h3>
+      <form id="buyForm">
+        <input type="text" id="name" placeholder="Name and Surname" required />
+        <input type="number" id="age" placeholder="Age" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="tel" id="whatsapp" placeholder="WhatsApp Number" required />
+        <label for="pickup">Pick-Up Point:</label>
+        <select id="pickup" required>
+          <option value="2nd Ave">2nd Ave</option>
+          <option value="South Campus">South Campus</option>
+        </select>
+        <button type="submit">Submit</button>
+        <button type="button" class="close-popup" onclick="closePopup()">Cancel</button>
+      </form>
+    </div>
   </div>
 
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    let currentBook = {};
+    // Initialize EmailJS
+    emailjs.init("user_GsQz23OPKXMqYP9cxBQ0v");
 
-    function openForm(title, price, code) {
-      currentBook = { title, price, code };
-      document.getElementById('buyForm').style.display = 'block';
+    // Open the popup form
+    function openPopup(bookTitle, price) {
+      document.getElementById('popup').style.display = 'flex';
+      document.getElementById('buyForm').onsubmit = function (event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+        const email = document.getElementById('email').value;
+        const whatsapp = document.getElementById('whatsapp').value;
+        const pickup = document.getElementById('pickup').value;
+
+        const message = `
+          Book Title: ${bookTitle}
+          Price: ${price}
+          Name: ${name}
+          Age: ${age}
+          Email: ${email}
+          WhatsApp: ${whatsapp}
+          Pickup Point: ${pickup}
+        `;
+
+        // Send email with book and user details
+        const emailParams = {
+          to_email: 'dtech2services@gmail.com',
+          subject: `Purchase Request: ${bookTitle}`,
+          message: message,
+        };
+
+        emailjs.send('service_wejpfmd', 'template_qspvvvi', emailParams)
+          .then(function (response) {
+            console.log('Email sent successfully', response);
+            closePopup();
+            alert('Your purchase request has been submitted!');
+          }, function (error) {
+            console.log('Email failed', error);
+            alert('Something went wrong, please try again.');
+          });
+      };
     }
 
-    function closeForm() {
-      document.getElementById('buyForm').style.display = 'none';
-    }
-
-    function submitForm() {
-      const name = document.getElementById('name').value.trim();
-      const age = document.getElementById('age').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const whatsapp = document.getElementById('whatsapp').value.trim();
-      const pickup = document.getElementById('pickup').value;
-
-      if (!name || !age || !email || !whatsapp || !pickup) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      const subject = `Book Order: ${currentBook.title}`;
-      const body = `
-Name & Surname: ${name}
-Age: ${age}
-Email: ${email}
-WhatsApp Number: ${whatsapp}
-Pickup Point: ${pickup}
-
---- Book Details ---
-Title: ${currentBook.title}
-Price: R${currentBook.price}
-Code: ${currentBook.code}
-
-Thank you.`;
-
-      const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoLink;
+    // Close the popup
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
     }
   </script>
 </body>
