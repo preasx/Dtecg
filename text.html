@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Textbooks - DTech Services</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f9fafb;
+      color: #1f2937;
+      direction: rtl;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .book-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-direction: row-reverse;
+    }
+
+    .book-card {
+      flex: 0 1 calc(50% - 1.5rem);
+      max-width: 300px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .book-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .book-info {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .book-info h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #111827;
+    }
+
+    .book-info p {
+      font-size: 0.95rem;
+      color: #6b7280;
+    }
+
+    .book-info .price {
+      font-weight: bold;
+      color: #10b981;
+      margin-top: 0.5rem;
+    }
+
+    .book-info .code {
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+
+    .buy-button {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .form-popup {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .form-popup input, select {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+    }
+
+    .form-popup button {
+      margin-top: 1rem;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #2563eb;
+      color: white;
+    }
+
+    .close-btn {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+
+    @media (max-width: 640px) {
+      .book-card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Available Textbooks</h1>
+
+  <div class="book-grid">
+    <!-- Book 1 -->
+    <div class="book-card">
+      <img src="book1.jpg" alt="Economics Textbook">
+      <div class="book-info">
+        <h3>Economics for SA Students</h3>
+        <p>6th Edition by Mohr. Core economics content.</p>
+        <div class="price">R120</div>
+        <div class="code">Code: ECO1001-06</div>
+        <button class="buy-button" onclick="openForm('Economics for SA Students', '120', 'ECO1001-06')">Buy Now</button>
+      </div>
+    </div>
+
+    <!-- Book 2 -->
+    <div class="book-card">
+      <img src="book2.jpg" alt="Management Textbook">
+      <div class="book-info">
+        <h3>New Venture Management</h3>
+        <p>Entrepreneurship 6th Ed. Ideal for BMM students.</p>
+        <div class="price">R100</div>
+        <div class="code">Code: BMM1001-06</div>
+        <button class="buy-button" onclick="openForm('New Venture Management', '100', 'BMM1001-06')">Buy Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Popup -->
+  <div class="form-popup" id="buyForm">
+    <h3>Buy Textbook</h3>
+    <input type="text" id="name" placeholder="Name and Surname" required />
+    <input type="number" id="age" placeholder="Age" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="tel" id="whatsapp" placeholder="WhatsApp Number" required />
+    <select id="pickup">
+      <option value="">Select Pickup Point</option>
+      <option value="2nd Avenue">2nd Avenue</option>
+      <option value="South Campus">South Campus</option>
+    </select>
+    <button class="submit-btn" onclick="submitForm()">Send</button>
+    <button class="close-btn" onclick="closeForm()">Cancel</button>
+  </div>
+
+  <script>
+    let currentBook = {};
+
+    function openForm(title, price, code) {
+      currentBook = { title, price, code };
+      document.getElementById('buyForm').style.display = 'block';
+    }
+
+    function closeForm() {
+      document.getElementById('buyForm').style.display = 'none';
+    }
+
+    function submitForm() {
+      const name = document.getElementById('name').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const whatsapp = document.getElementById('whatsapp').value.trim();
+      const pickup = document.getElementById('pickup').value;
+
+      if (!name || !age || !email || !whatsapp || !pickup) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const subject = `Book Order: ${currentBook.title}`;
+      const body = `
+Name & Surname: ${name}
+Age: ${age}
+Email: ${email}
+WhatsApp Number: ${whatsapp}
+Pickup Point: ${pickup}
+
+--- Book Details ---
+Title: ${currentBook.title}
+Price: R${currentBook.price}
+Code: ${currentBook.code}
+
+Thank you.`;
+
+      const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    }
+  </script>
+</body>
+</html>
