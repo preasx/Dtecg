@@ -1,192 +1,214 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DTech Textbook Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Textbooks - DTech Services</title>
   <style>
     body {
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 2rem;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f1f5f9;
-      color: #1f2937;
+      background: #f3f4f6;
+      color: #111827;
     }
     h1 {
       text-align: center;
       margin-bottom: 2rem;
+      font-size: 2rem;
     }
     .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    .book-card {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
       display: flex;
-      flex-direction: row-reverse;
+      flex-direction: column;
+      gap: 2rem;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
     }
-    .book-card img {
-      width: 100px;
-      height: auto;
-      border-radius: 8px;
-    }
-    .book-info {
-      flex: 1;
-    }
-    .book-info h2 {
-      font-size: 1.25rem;
-      margin: 0;
-    }
-    .book-info p {
-      margin: 4px 0;
-    }
-    .book-info small {
-      color: #6b7280;
-    }
-    .book-card button {
-      background-color: #111827;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .book-card button:hover {
-      background-color: #2563eb;
-    }
-    .popup-form {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-    .form-container {
-      background-color: white;
-      padding: 2rem;
+    .card {
+      background: white;
+      width: 90%;
+      max-width: 500px;
       border-radius: 12px;
-      max-width: 400px;
-      width: 100%;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
     }
-    .form-container label {
-      display: block;
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+    }
+    .card-content h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #1f2937;
+    }
+    .card-content p {
+      margin: 0.25rem 0;
+      font-size: 0.95rem;
+      color: #4b5563;
+    }
+    .card-content .code {
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+    .card-content .price {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #111827;
+    }
+    .buy-btn {
       margin-top: 1rem;
-      font-weight: 600;
-    }
-    .form-container input,
-    .form-container select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    .form-container button {
-      margin-top: 1.5rem;
-      background-color: #111827;
+      background: #2563eb;
       color: white;
       padding: 10px;
       border: none;
       border-radius: 8px;
-      width: 100%;
       cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
     }
-    .form-container button:hover {
-      background-color: #2563eb;
+    .buy-btn:hover {
+      background: #1e40af;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .modal-content h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      color: #1f2937;
+    }
+    .modal-content label {
+      display: block;
+      margin-top: 0.75rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .modal-content input, .modal-content select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 0.3rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+    .modal-content button {
+      margin-top: 1rem;
+      background: #10b981;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .close-btn {
+      margin-top: 0.5rem;
+      background: #ef4444;
     }
   </style>
 </head>
 <body>
-  <h1>DTech Textbook Store</h1>
+  <h1>Available Textbooks</h1>
   <div class="grid">
-    <div class="book-card">
-      <img src="book1.jpg" alt="Book 1" />
-      <div class="book-info">
-        <h2>Intro to Economics</h2>
-        <p>Price: R250</p>
-        <small>Code: ECO101</small>
-        <button onclick="openForm('Intro to Economics', 'R250', 'ECO101')">Buy</button>
+    <!-- Book Card 1 -->
+    <div class="card">
+      <img src="book1.jpg" alt="Book Cover" />
+      <div class="card-content">
+        <h3>Business Management 101</h3>
+        <p>Comprehensive guide to first-year business studies.</p>
+        <p class="code">Code: BM101</p>
+        <p class="price">R150</p>
+        <button class="buy-btn" onclick="openForm('Business Management 101', 'R150', 'BM101')">Buy</button>
       </div>
     </div>
-    <div class="book-card">
-      <img src="book2.jpg" alt="Book 2" />
-      <div class="book-info">
-        <h2>Business Management</h2>
-        <p>Price: R300</p>
-        <small>Code: BMM102</small>
-        <button onclick="openForm('Business Management', 'R300', 'BMM102')">Buy</button>
+
+    <!-- Book Card 2 -->
+    <div class="card">
+      <img src="book2.jpg" alt="Book Cover" />
+      <div class="card-content">
+        <h3>Economics for SA Students</h3>
+        <p>6th Edition textbook by Mohr & Associates.</p>
+        <p class="code">Code: ECO1001</p>
+        <p class="price">R120</p>
+        <button class="buy-btn" onclick="openForm('Economics for SA Students', 'R120', 'ECO1001')">Buy</button>
       </div>
     </div>
-  </div>  <div class="popup-form" id="popupForm">
-    <div class="form-container">
-      <form id="purchaseForm">
-        <input type="hidden" id="bookTitle">
-        <input type="hidden" id="bookPrice">
-        <input type="hidden" id="bookCode"><label>Full Name</label>
-    <input type="text" id="fullName" required />
+  </div>
 
-    <label>Age</label>
-    <input type="number" id="age" required />
+  <!-- Modal Form -->
+  <div class="modal" id="buyModal">
+    <div class="modal-content">
+      <h2>Book Purchase Form</h2>
+      <form action="https://formsubmit.co/jonasmochebane@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New Book Order">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" id="bookTitle" name="Book Title">
+        <input type="hidden" id="bookCode" name="Book Code">
+        <input type="hidden" id="bookPrice" name="Price">
 
-    <label>Email</label>
-    <input type="email" id="email" required />
+        <label for="fullName">Name & Surname</label>
+        <input type="text" name="Name" id="fullName" required />
 
-    <label>WhatsApp Number</label>
-    <input type="tel" id="whatsapp" required />
+        <label for="age">Age</label>
+        <input type="number" name="Age" id="age" required />
 
-    <label>Pick-up Point</label>
-    <select id="pickup">
-      <option value="2nd Ave">2nd Ave</option>
-      <option value="South Campus">South Campus</option>
-    </select>
+        <label for="email">Email</label>
+        <input type="email" name="Email" id="email" required />
 
-    <button type="submit">Send Order</button>
-  </form>
-</div>
+        <label for="whatsapp">WhatsApp Number</label>
+        <input type="tel" name="WhatsApp" id="whatsapp" required />
 
-  </div>  <script>
+        <label for="pickup">Pickup Point</label>
+        <select name="Pickup Point" id="pickup" required>
+          <option value="">Select a point</option>
+          <option value="2nd Avenue">2nd Avenue</option>
+          <option value="South Campus">South Campus</option>
+        </select>
+
+        <button type="submit">Send Order</button>
+        <button type="button" class="close-btn" onclick="closeForm()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
     function openForm(title, price, code) {
+      document.getElementById('buyModal').style.display = 'flex';
       document.getElementById('bookTitle').value = title;
       document.getElementById('bookPrice').value = price;
       document.getElementById('bookCode').value = code;
-      document.getElementById('popupForm').style.display = 'flex';
     }
 
     function closeForm() {
-      document.getElementById('popupForm').style.display = 'none';
+      document.getElementById('buyModal').style.display = 'none';
     }
-
-    document.getElementById('purchaseForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('fullName').value;
-      const age = document.getElementById('age').value;
-      const email = document.getElementById('email').value;
-      const whatsapp = document.getElementById('whatsapp').value;
-      const pickup = document.getElementById('pickup').value;
-
-      const title = document.getElementById('bookTitle').value;
-      const price = document.getElementById('bookPrice').value;
-      const code = document.getElementById('bookCode').value;
-
-      const subject = `Book Purchase: ${title}`;
-      const body = `Hello DTech Services,%0D%0A%0D%0AI would like to purchase the following book:%0D%0A%0D%0ATitle: ${title}%0D%0ACode: ${code}%0D%0APrice: ${price}%0D%0A%0D%0AMy Details:%0D%0AName: ${name}%0D%0AAge: ${age}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0APickup Point: ${pickup}%0D%0A%0D%0AThank you!`;
-
-      window.open("https://conductorhimselfwhipped.com/spymr251ew?key=ce76edf7e5c6e4907177e712dc143365", "_blank");
-      window.location.href = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-      closeForm();
-    });
-  </script></body>
+  </script>
+</body>
 </html>
