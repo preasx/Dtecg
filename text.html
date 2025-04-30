@@ -25,7 +25,8 @@
     }
     .card {
       background: white;
-      width: 300px;
+      width: 90%;
+      max-width: 500px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.08);
       overflow: hidden;
@@ -43,9 +44,6 @@
     }
     .card-content {
       padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
     }
     .card-content h3 {
       margin: 0;
@@ -53,7 +51,7 @@
       color: #1f2937;
     }
     .card-content p {
-      margin: 0;
+      margin: 0.25rem 0;
       font-size: 0.95rem;
       color: #4b5563;
     }
@@ -75,6 +73,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
+      width: 100%;
     }
     .buy-btn:hover {
       background: #1e40af;
@@ -138,10 +137,9 @@
 <body>
   <h1>Available Textbooks</h1>
   <div class="grid">
+    <!-- Book Card 1 -->
     <div class="card">
-      <a href="book1.jpg" target="_blank">
-        <img src="book1.jpg" alt="Book Cover" />
-      </a>
+      <img src="book1.jpg" alt="Book Cover" />
       <div class="card-content">
         <h3>Business Management 101</h3>
         <p>Comprehensive guide to first-year business studies.</p>
@@ -151,10 +149,9 @@
       </div>
     </div>
 
+    <!-- Book Card 2 -->
     <div class="card">
-      <a href="book2.jpg" target="_blank">
-        <img src="book2.jpg" alt="Book Cover" />
-      </a>
+      <img src="book2.jpg" alt="Book Cover" />
       <div class="card-content">
         <h3>Economics for SA Students</h3>
         <p>6th Edition textbook by Mohr & Associates.</p>
@@ -165,17 +162,19 @@
     </div>
   </div>
 
+  <!-- Modal Form -->
   <div class="modal" id="buyModal">
     <div class="modal-content">
       <h2>Book Purchase Form</h2>
       <form action="https://formsubmit.co/el/mihari" method="POST">
+        <input type="hidden" name="_subject" value="New Book Order">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="Book Title" id="bookTitle" />
-        <input type="hidden" name="Book Code" id="bookCode" />
-        <input type="hidden" name="Book Price" id="bookPrice" />
+        <input type="hidden" id="bookTitle" name="Book Title">
+        <input type="hidden" id="bookCode" name="Book Code">
+        <input type="hidden" id="bookPrice" name="Price">
 
         <label for="fullName">Name & Surname</label>
-        <input type="text" name="Name and Surname" id="fullName" required />
+        <input type="text" name="Name" id="fullName" required />
 
         <label for="age">Age</label>
         <input type="number" name="Age" id="age" required />
@@ -184,7 +183,7 @@
         <input type="email" name="Email" id="email" required />
 
         <label for="whatsapp">WhatsApp Number</label>
-        <input type="tel" name="WhatsApp Number" id="whatsapp" required />
+        <input type="tel" name="WhatsApp" id="whatsapp" required />
 
         <label for="pickup">Pickup Point</label>
         <select name="Pickup Point" id="pickup" required>
