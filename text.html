@@ -139,7 +139,9 @@
   <h1>Available Textbooks</h1>
   <div class="grid">
     <div class="card">
-      <img src="book1.jpg" alt="Book Cover" />
+      <a href="book1.jpg" target="_blank">
+        <img src="book1.jpg" alt="Book Cover" />
+      </a>
       <div class="card-content">
         <h3>Business Management 101</h3>
         <p>Comprehensive guide to first-year business studies.</p>
@@ -150,7 +152,9 @@
     </div>
 
     <div class="card">
-      <img src="book2.jpg" alt="Book Cover" />
+      <a href="book2.jpg" target="_blank">
+        <img src="book2.jpg" alt="Book Cover" />
+      </a>
       <div class="card-content">
         <h3>Economics for SA Students</h3>
         <p>6th Edition textbook by Mohr & Associates.</p>
@@ -165,7 +169,7 @@
     <div class="modal-content">
       <h2>Book Purchase Form</h2>
       <form action="https://formsubmit.co/el/mihari" method="POST">
-        <input type="hidden" name="_next" value="thankyou.html">
+        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="Book Title" id="bookTitle" />
         <input type="hidden" name="Book Code" id="bookCode" />
         <input type="hidden" name="Book Price" id="bookPrice" />
