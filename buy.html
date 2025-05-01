@@ -215,8 +215,6 @@
         <input type="email" id="buyerEmail">
         <label>WhatsApp Number</label>
         <input type="tel" id="buyerWhatsApp">
-        <label>Upload ID or Student Card (attach manually in email)</label>
-        <p style="font-size: 0.9rem;">Attach your ID/Student card and a picture of yourself in the email when it opens.</p>
       </div>
 
       <div id="returningFields" style="display:none">
@@ -282,7 +280,7 @@
         const email = document.getElementById('buyerEmail').value;
         const whatsapp = document.getElementById('buyerWhatsApp').value;
         const generatedPassword = Math.random().toString(36).substring(2, 10);
-        body += `Full Name: ${name}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0AGenerated Password: ${generatedPassword}%0D%0A%0D%0A(Please save your password for next time.)%0D%0A%0D%0A*Attach a picture of your ID/Student card manually in the email.*`;
+        body += `Full Name: ${name}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0AGenerated Password: ${generatedPassword}%0D%0A%0D%0A(Please save your password for next time.)%0D%0A%0D%0A*.*`;
       } else {
         const password = document.getElementById('buyerPassword').value;
         const email = document.getElementById('returningEmail').value;
