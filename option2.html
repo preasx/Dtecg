@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Book a Word/Excel Assistance Session - DTech Services</title>
   <style>
     body {
@@ -54,7 +54,7 @@
 
   <h1>Book Word/Excel Assistance</h1>
   <div class="form-container">
-    <form action="https://usebasin.com/f/a077385187d1" method="POST" onsubmit="redirectAfterSubmit()">
+    <form id="bookingForm" action="https://usebasin.com/f/a077385187d1" method="POST">
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" name="fullName" required>
@@ -89,11 +89,12 @@
   </div>
 
   <script>
-    function redirectAfterSubmit() {
-      setTimeout(function() {
-        window.location.href = "https://dtech-services.co.za/thankyou.html";
-      }, 2000); // Redirect after 2 seconds
-    }
+    document.getElementById("bookingForm").addEventListener("submit", function(e) {
+      // Open thank you page in the same tab
+      window.location.href = "https://dtech-services.co.za/thankyou.html";
+      
+      // Let form continue to submit in background
+    });
   </script>
 
 </body>
