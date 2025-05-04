@@ -54,7 +54,7 @@
 
   <h1>Book Word/Excel Assistance</h1>
   <div class="form-container">
-    <form action="https://usebasin.com/f/a077385187d1" method="POST">
+    <form action="https://usebasin.com/f/a077385187d1" method="POST" onsubmit="redirectAfterSubmit()">
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" name="fullName" required>
@@ -84,12 +84,17 @@
         <input type="time" name="sessionTime" required>
       </div>
 
-      <!-- Corrected redirect field -->
-      <input type="hidden" name="_redirect" value="https://dtech-services.co.za/thankyou.html">
-
       <button type="submit" class="submit-btn">Send Booking Request</button>
     </form>
   </div>
+
+  <script>
+    function redirectAfterSubmit() {
+      setTimeout(function() {
+        window.location.href = "https://dtech-services.co.za/thankyou.html";
+      }, 2000); // Redirect after 2 seconds
+    }
+  </script>
 
 </body>
 </html>
