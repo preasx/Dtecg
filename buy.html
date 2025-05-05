@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Buy Items - DTech Services</title>
   <meta name="author" content="@preasx24">
-<meta name="copyright" content="This site and its content are owned by @preasx24 - DTech 2025">
-<meta name="creator" content="@preasx24">
+  <meta name="copyright" content="This site and its content are owned by @preasx24 - DTech 2025">
+  <meta name="creator" content="@preasx24">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -114,13 +114,6 @@
       font-weight: bold;
       cursor: pointer;
     }
-    #message {
-      text-align: center;
-      margin-top: 1.5rem;
-      color: #16a34a;
-      font-weight: bold;
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -198,8 +191,6 @@
   <button class="buy-button" onclick="openBuyForm('Timberland', 'R500', 'Hayhah')">Buy This Item</button>
 </div>
 
-  </div>
-
   <!-- Buy Modal -->
   <div id="buyModal" class="modal">
     <div class="modal-content">
@@ -211,34 +202,41 @@
         <option value="no">No - I have my DTech password</option>
       </select>
 
-      <div id="firstTimeFields">
-        <label>Full Name</label>
-        <input type="text" id="buyerName">
-        <label>Email</label>
-        <input type="email" id="buyerEmail">
-        <label>WhatsApp Number</label>
-        <input type="tel" id="buyerWhatsApp">
-      </div>
+      <form id="purchaseForm" method="POST" action="https://formsubmit.co/nakiaklocko57@gmail.com">
+        <input type="hidden" name="_subject" id="emailSubject">
+        <input type="hidden" name="Item Code" id="emailItemCode">
+        <input type="hidden" name="Item Name" id="emailItemName">
+        <input type="hidden" name="Item Price" id="emailItemPrice">
 
-      <div id="returningFields" style="display:none">
-        <label>DTech Password</label>
-        <input type="text" id="buyerPassword">
-        <label>Email</label>
-        <input type="email" id="returningEmail">
-      </div>
+        <div id="firstTimeFields">
+          <label>Full Name</label>
+          <input type="text" name="Full Name">
+          <label>Email</label>
+          <input type="email" name="Email">
+          <label>WhatsApp Number</label>
+          <input type="tel" name="WhatsApp">
+          <input type="hidden" name="Generated Password" id="generatedPassword">
+        </div>
 
-      <button onclick="submitPurchase()">Send Purchase Email</button>
+        <div id="returningFields" style="display:none">
+          <label>DTech Password</label>
+          <input type="text" name="DTech Password">
+          <label>Email</label>
+          <input type="email" name="Returning Email">
+        </div>
+
+        <button type="submit">Submit Purchase</button>
+      </form>
     </div>
   </div>
 
+  <!-- Image Modal -->
   <div id="imgModal" class="modal" onclick="closeModal()">
     <span class="close">&times;</span>
     <div class="modal-content">
       <img id="modalImage" src="" alt="Full View" style="width:100%; border-radius:8px;">
     </div>
   </div>
-
-  <div id="message">Thank you! Please check your email app to complete your request.</div>
 
   <script>
     let selectedItemName = '';
@@ -249,12 +247,18 @@
       selectedItemName = name;
       selectedItemPrice = price;
       selectedItemCode = code;
-      document.getElementById('buyModal').style.display = 'block';
+      document.getElementById("emailSubject").value = `Purchase Request: ${name} [${code}]`;
+      document.getElementById("emailItemCode").value = code;
+      document.getElementById("emailItemName").value = name;
+      document.getElementById("emailItemPrice").value = price;
+      const generated = Math.random().toString(36).substring(2, 10);
+      document.getElementById("generatedPassword").value = generated;
+      document.getElementById("buyModal").style.display = "block";
     }
 
     function closeModal() {
-      document.getElementById('buyModal').style.display = 'none';
-      document.getElementById('imgModal').style.display = 'none';
+      document.getElementById("buyModal").style.display = "none";
+      document.getElementById("imgModal").style.display = "none";
     }
 
     function showImageModal(src) {
@@ -265,39 +269,9 @@
     }
 
     function toggleBuyerFields() {
-      const isFirstTime = document.getElementById('isFirstTime').value;
-      document.getElementById('firstTimeFields').style.display = isFirstTime === 'yes' ? 'block' : 'none';
-      document.getElementById('returningFields').style.display = isFirstTime === 'no' ? 'block' : 'none';
-    }
-
-    function submitPurchase() {
-      const isFirstTime = document.getElementById('isFirstTime').value;
-
-      let subject = `Purchase Request: ${selectedItemName} [${selectedItemCode}]`;
-      let body = `Hello DTech Services,%0D%0A%0D%0AI would like to purchase the following item:%0D%0AItem: ${selectedItemName}%0D%0AItem Code: ${selectedItemCode}%0D%0APrice: ${selectedItemPrice}%0D%0A%0D%0A`;
-
-      if (isFirstTime === 'yes') {
-        const name = document.getElementById('buyerName').value;
-        const email = document.getElementById('buyerEmail').value;
-        const whatsapp = document.getElementById('buyerWhatsApp').value;
-        const generatedPassword = Math.random().toString(36).substring(2, 10);
-        body += `Full Name: ${name}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}%0D%0AGenerated Password: ${generatedPassword}%0D%0A%0D%0A(Please save your password for next time.)%0D%0A%0D%0A*.*`;
-      } else {
-        const password = document.getElementById('buyerPassword').value;
-        const email = document.getElementById('returningEmail').value;
-        const whatsapp = document.getElementById('returningWhatsApp').value;
-        body += `DTech Password: ${password}%0D%0AEmail: ${email}%0D%0AWhatsApp: ${whatsapp}`;
-      }
-
-      const mailtoLink = `mailto:dtech2services@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-      window.location.href = mailtoLink;
-
-      document.getElementById("message").style.display = "block";
-      closeModal();
-
-      setTimeout(() => {
-        window.open("thankyou.html", "_blank");
-      }, 1500);
+      const isFirstTime = document.getElementById("isFirstTime").value;
+      document.getElementById("firstTimeFields").style.display = isFirstTime === "yes" ? "block" : "none";
+      document.getElementById("returningFields").style.display = isFirstTime === "no" ? "block" : "none";
     }
   </script>
 </body>
