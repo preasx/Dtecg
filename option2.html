@@ -55,9 +55,14 @@
   <h1>Book Word/Excel Assistance</h1>
   <div class="form-container">
     <form action="https://formsubmit.co/lefa4082@gmail.com" method="POST">
-      <!-- Redirect to thank you page -->
-      <input type="hidden" name="_redirect" value="https://dtech-services.co.za/thankyou.html">
       
+      <!-- Redirect to thank you page after submission -->
+      <input type="hidden" name="_next" value="https://dtech-services.co.za/thankyou.html">
+      
+      <!-- Disable CAPTCHA -->
+      <input type="hidden" name="_captcha" value="false">
+
+      <!-- Form fields -->
       <div class="form-group">
         <label>Full Name</label>
         <input type="text" name="fullName" required>
