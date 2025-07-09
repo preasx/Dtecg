@@ -200,6 +200,13 @@
       color: #ff4757;
     }
     
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: var(--gray);
+    }
+    
     footer {
       text-align: center;
       padding: 2rem;
@@ -233,96 +240,15 @@
         <p class="subtitle">Premium code snippets & tutorials for developers</p>
       </div>
       <div class="search-bar">
-        <input type="text" placeholder="Search snippets...">
-        <button><i class="fas fa-search"></i></button>
+        <input type="text" id="searchInput" placeholder="Search snippets...">
+        <button id="searchButton"><i class="fas fa-search"></i></button>
       </div>
     </div>
   </header>
   
   <main class="container">
-    <div class="snippets-grid">
-      <!-- Snippet Card 1 -->
-      <article class="snippet-card">
-        <div class="card-header">
-          <h3>Modern Login Form</h3>
-          <div class="tech-stack">
-            <span class="tech-tag">HTML</span>
-            <span class="tech-tag">CSS</span>
-            <span class="tech-tag">JavaScript</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <p>A clean, responsive login form with floating labels, validation, and smooth animations. Perfect for modern web applications.</p>
-        </div>
-        <div class="card-footer">
-          <div class="actions">
-            <a href="tutorials.html?id=login-form" class="btn btn-primary">
-              <i class="fas fa-play"></i> Tutorial
-            </a>
-            <a href="login-form.zip" download class="btn btn-outline">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-          <button class="favorite-btn" aria-label="Add to favorites">
-            <i class="far fa-heart"></i>
-          </button>
-        </div>
-      </article>
-      
-      <!-- Snippet Card 2 -->
-      <article class="snippet-card">
-        <div class="card-header">
-          <h3>Interactive Popup Modal</h3>
-          <div class="tech-stack">
-            <span class="tech-tag">HTML</span>
-            <span class="tech-tag">CSS</span>
-            <span class="tech-tag">JS</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <p>A fully accessible modal dialog with animations, focus trapping, and keyboard navigation. Customizable and easy to implement.</p>
-        </div>
-        <div class="card-footer">
-          <div class="actions">
-            <a href="tutorials.html?id=popup-modal" class="btn btn-primary">
-              <i class="fas fa-play"></i> Tutorial
-            </a>
-            <a href="modal.zip" download class="btn btn-outline">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-          <button class="favorite-btn" aria-label="Add to favorites">
-            <i class="far fa-heart"></i>
-          </button>
-        </div>
-      </article>
-      
-      <!-- Snippet Card 3 -->
-      <article class="snippet-card">
-        <div class="card-header">
-          <h3>Dark Mode Toggle</h3>
-          <div class="tech-stack">
-            <span class="tech-tag">CSS</span>
-            <span class="tech-tag">JavaScript</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <p>Implement a persistent dark mode toggle that remembers user preference with localStorage and prefers-color-scheme.</p>
-        </div>
-        <div class="card-footer">
-          <div class="actions">
-            <a href="tutorials.html?id=dark-mode" class="btn btn-primary">
-              <i class="fas fa-play"></i> Tutorial
-            </a>
-            <a href="dark-mode.zip" download class="btn btn-outline">
-              <i class="fas fa-download"></i> Download
-            </a>
-          </div>
-          <button class="favorite-btn" aria-label="Add to favorites">
-            <i class="far fa-heart"></i>
-          </button>
-        </div>
-      </article>
+    <div class="snippets-grid" id="snippetsContainer">
+      <!-- Snippet cards will be dynamically inserted here -->
     </div>
   </main>
   
@@ -332,18 +258,143 @@
   </footer>
 
   <script>
-    // Simple favorite functionality
-    document.querySelectorAll('.favorite-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        this.classList.toggle('active');
-        const icon = this.querySelector('i');
-        if (this.classList.contains('active')) {
-          icon.classList.replace('far', 'fas');
-        } else {
-          icon.classList.replace('fas', 'far');
-        }
+    // Sample data for snippets
+    const snippets = [
+      {
+        id: 'login-form',
+        title: 'Modern Login Form',
+        description: 'A clean, responsive login form with floating labels, validation, and smooth animations. Perfect for modern web applications.',
+        tags: ['HTML', 'CSS', 'JavaScript'],
+        tutorialUrl: 'tutorials.html?id=login-form',
+        downloadUrl: 'login-form.zip'
+      },
+      {
+        id: 'popup-modal',
+        title: 'Interactive Popup Modal',
+        description: 'A fully accessible modal dialog with animations, focus trapping, and keyboard navigation. Customizable and easy to implement.',
+        tags: ['HTML', 'CSS', 'JS'],
+        tutorialUrl: 'tutorials.html?id=popup-modal',
+        downloadUrl: 'modal.zip'
+      },
+      {
+        id: 'dark-mode',
+        title: 'Dark Mode Toggle',
+        description: 'Implement a persistent dark mode toggle that remembers user preference with localStorage and prefers-color-scheme.',
+        tags: ['CSS', 'JavaScript'],
+        tutorialUrl: 'tutorials.html?id=dark-mode',
+        downloadUrl: 'dark-mode.zip'
+      },
+      {
+        id: 'image-gallery',
+        title: 'Responsive Image Gallery',
+        description: 'A mobile-friendly image gallery with lightbox functionality and lazy loading for optimal performance.',
+        tags: ['HTML', 'CSS', 'JavaScript'],
+        tutorialUrl: 'tutorials.html?id=image-gallery',
+        downloadUrl: 'gallery.zip'
+      },
+      {
+        id: 'form-validation',
+        title: 'Client-Side Form Validation',
+        description: 'Comprehensive form validation with real-time feedback using the Constraint Validation API.',
+        tags: ['HTML', 'JavaScript'],
+        tutorialUrl: 'tutorials.html?id=form-validation',
+        downloadUrl: 'validation.zip'
+      },
+      {
+        id: 'animated-nav',
+        title: 'Animated Navigation Bar',
+        description: 'A sleek navigation bar with smooth animations and mobile menu toggle.',
+        tags: ['HTML', 'CSS', 'JavaScript'],
+        tutorialUrl: 'tutorials.html?id=animated-nav',
+        downloadUrl: 'navbar.zip'
+      }
+    ];
+
+    // DOM elements
+    const snippetsContainer = document.getElementById('snippetsContainer');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    // Render all snippets initially
+    renderSnippets(snippets);
+
+    // Search functionality
+    searchInput.addEventListener('input', () => filterSnippets());
+    searchButton.addEventListener('click', () => filterSnippets());
+
+    function filterSnippets() {
+      const searchTerm = searchInput.value.toLowerCase();
+      if (searchTerm.trim() === '') {
+        renderSnippets(snippets);
+        return;
+      }
+
+      const filtered = snippets.filter(snippet => 
+        snippet.title.toLowerCase().includes(searchTerm) ||
+        snippet.description.toLowerCase().includes(searchTerm) ||
+        snippet.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+      );
+
+      renderSnippets(filtered);
+    }
+
+    function renderSnippets(snippetsToRender) {
+      snippetsContainer.innerHTML = '';
+
+      if (snippetsToRender.length === 0) {
+        snippetsContainer.innerHTML = `
+          <div class="no-results">
+            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <h3>No snippets found</h3>
+            <p>Try a different search term</p>
+          </div>
+        `;
+        return;
+      }
+
+      snippetsToRender.forEach(snippet => {
+        const card = document.createElement('article');
+        card.className = 'snippet-card';
+        card.innerHTML = `
+          <div class="card-header">
+            <h3>${snippet.title}</h3>
+            <div class="tech-stack">
+              ${snippet.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+          <div class="card-body">
+            <p>${snippet.description}</p>
+          </div>
+          <div class="card-footer">
+            <div class="actions">
+              <a href="${snippet.tutorialUrl}" class="btn btn-primary">
+                <i class="fas fa-play"></i> Tutorial
+              </a>
+              <a href="${snippet.downloadUrl}" download class="btn btn-outline">
+                <i class="fas fa-download"></i> Download
+              </a>
+            </div>
+            <button class="favorite-btn" aria-label="Add to favorites">
+              <i class="far fa-heart"></i>
+            </button>
+          </div>
+        `;
+        snippetsContainer.appendChild(card);
       });
-    });
+
+      // Reattach favorite button event listeners
+      document.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          this.classList.toggle('active');
+          const icon = this.querySelector('i');
+          if (this.classList.contains('active')) {
+            icon.classList.replace('far', 'fas');
+          } else {
+            icon.classList.replace('fas', 'far');
+          }
+        });
+      });
+    }
   </script>
 </body>
 </html>
