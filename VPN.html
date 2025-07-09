@@ -3,17 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodeHub | Snippets & Tutorials</title>
+  <title>CodeHub | Premium Code Snippets</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #4361ee;
-      --secondary: #3f37c9;
-      --accent: #4cc9f0;
-      --success: #4ad66d;
-      --dark: #212529;
-      --light: #f8f9fa;
-      --gray: #6c757d;
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #818cf8;
+      --accent: #10b981;
+      --accent-dark: #059669;
+      --dark: #1e293b;
+      --darker: #0f172a;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --gray-light: #e2e8f0;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     * {
@@ -23,140 +30,256 @@
     }
     
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
       color: var(--dark);
-      background-color: #f5f7ff;
-      padding: 0;
+      background: linear-gradient(135deg, #f9fafb, #f1f5f9);
+      min-height: 100vh;
     }
     
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 0 2rem;
     }
     
+    /* Header */
     header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, var(--darker), var(--dark));
       color: white;
-      padding: 2rem 0;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     }
     
     .header-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 2rem;
     }
     
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.5rem;
     }
     
-    .subtitle {
-      font-weight: 300;
-      opacity: 0.9;
+    .logo-icon {
+      color: var(--primary-light);
+      font-size: 1.75rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: white;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-light);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 5rem 0 3rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    
+    /* Search */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      position: relative;
     }
     
     .search-bar {
       display: flex;
-      width: 300px;
+      width: 100%;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      overflow: hidden;
     }
     
     .search-bar input {
       flex: 1;
-      padding: 0.75rem;
+      padding: 1rem 1.5rem;
       border: none;
-      border-radius: 4px 0 0 4px;
       font-size: 1rem;
+      background: white;
+    }
+    
+    .search-bar input:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: -2px;
     }
     
     .search-bar button {
-      background-color: var(--accent);
+      background-color: var(--primary);
       color: white;
       border: none;
-      padding: 0 1rem;
-      border-radius: 0 4px 4px 0;
+      padding: 0 1.5rem;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
     
     .search-bar button:hover {
-      background-color: #3ab7d8;
+      background-color: var(--primary-dark);
     }
     
+    /* Snippets Grid */
     .snippets-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2rem;
+      padding: 1rem 0 4rem;
     }
     
     .snippet-card {
-      background: white;
-      border-radius: 8px;
+      background: var(--card-bg);
+      border-radius: 0.75rem;
       overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     
     .snippet-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-image {
+      height: 180px;
+      background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-dark);
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9));
     }
     
     .card-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 1.5rem 1.5rem 0;
     }
     
     .card-header h3 {
       font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      color: var(--primary);
-    }
-    
-    .card-body {
-      padding: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--darker);
     }
     
     .tech-stack {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.5rem;
       margin-bottom: 1rem;
     }
     
     .tech-tag {
-      background-color: #e9ecef;
-      color: var(--gray);
-      padding: 0.25rem 0.75rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
+      background-color: var(--gray-light);
+      color: var(--dark);
+      padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
       font-weight: 500;
+      transition: var(--transition);
+    }
+    
+    .tech-tag:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .card-body {
+      padding: 0 1.5rem 1.5rem;
+      flex-grow: 1;
+    }
+    
+    .card-body p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
     }
     
     .card-footer {
       padding: 1rem 1.5rem;
-      background-color: #f8f9fa;
+      background-color: rgba(0, 0, 0, 0.02);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      border-radius: 6px;
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.5rem;
       text-decoration: none;
       font-weight: 500;
-      transition: all 0.2s;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
+      transition: var(--transition);
+      font-size: 0.875rem;
     }
     
     .btn-primary {
@@ -165,7 +288,8 @@
     }
     
     .btn-primary:hover {
-      background-color: var(--secondary);
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
     }
     
     .btn-outline {
@@ -175,16 +299,18 @@
     }
     
     .btn-outline:hover {
-      background-color: rgba(67, 97, 238, 0.1);
+      background-color: rgba(99, 102, 241, 0.1);
+      transform: translateY(-1px);
     }
     
-    .btn-success {
-      background-color: var(--success);
+    .btn-accent {
+      background-color: var(--accent);
       color: white;
     }
     
-    .btn-success:hover {
-      background-color: #3ac259;
+    .btn-accent:hover {
+      background-color: var(--accent-dark);
+      transform: translateY(-1px);
     }
     
     .favorite-btn {
@@ -192,38 +318,116 @@
       border: none;
       color: var(--gray);
       cursor: pointer;
-      font-size: 1.2rem;
-      transition: color 0.2s;
+      font-size: 1.25rem;
+      transition: var(--transition);
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
     }
     
-    .favorite-btn:hover, .favorite-btn.active {
-      color: #ff4757;
+    .favorite-btn:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
     }
     
+    .favorite-btn.active {
+      color: #ef4444;
+    }
+    
+    /* No Results */
     .no-results {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 3rem;
+      padding: 4rem;
       color: var(--gray);
     }
     
+    .no-results-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    
+    /* Footer */
     footer {
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      color: white;
+      padding: 3rem 0;
+      margin-top: auto;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-column h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--gray-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+    
+    .footer-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
       text-align: center;
-      padding: 2rem;
+      padding-top: 3rem;
       margin-top: 3rem;
-      color: var(--gray);
-      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--gray-light);
+      font-size: 0.875rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
     }
     
     @media (max-width: 768px) {
       .header-content {
         flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
+        gap: 1rem;
       }
       
-      .search-bar {
-        width: 100%;
+      .nav-links {
+        gap: 1rem;
+      }
+      
+      .hero {
+        padding: 3rem 0 2rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
       }
       
       .snippets-grid {
@@ -235,30 +439,92 @@
 <body>
   <header>
     <div class="container header-content">
-      <div>
-        <h1>CodeHub</h1>
-        <p class="subtitle">Premium code snippets & tutorials for developers</p>
+      <div class="logo">
+        <i class="fas fa-code logo-icon"></i>
+        <span>CodeHub</span>
       </div>
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search snippets...">
-        <button id="searchButton"><i class="fas fa-search"></i></button>
-      </div>
+      <nav class="nav-links">
+        <a href="#">Explore</a>
+        <a href="#">Collections</a>
+        <a href="#">Docs</a>
+        <a href="#">Pricing</a>
+      </nav>
     </div>
   </header>
   
-  <main class="container">
-    <div class="snippets-grid" id="snippetsContainer">
-      <!-- Snippet cards will be dynamically inserted here -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Build Faster with Premium Code Snippets</h1>
+        <p>Access thousands of production-ready components and save hundreds of development hours</p>
+        
+        <div class="search-container">
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search snippets (e.g. 'login form', 'React', 'animation')...">
+            <button id="searchButton">
+              <i class="fas fa-search"></i>
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="container">
+      <div class="snippets-grid" id="snippetsContainer">
+        <!-- Snippet cards will be dynamically inserted here -->
+      </div>
     </div>
   </main>
   
   <footer>
-    <p>&copy; 2023 CodeHub. All rights reserved.</p>
-    <p>Made with <i class="fas fa-heart" style="color: #ff4757;"></i> for developers</p>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Product</h3>
+          <ul class="footer-links">
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Examples</a></li>
+            <li><a href="#">Updates</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Community</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Connect</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+            <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+            <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 CodeHub. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // Sample data for snippets
+    // Sample data for snippets with preview icons
     const snippets = [
       {
         id: 'login-form',
@@ -266,7 +532,8 @@
         description: 'A clean, responsive login form with floating labels, validation, and smooth animations. Perfect for modern web applications.',
         tags: ['HTML', 'CSS', 'JavaScript'],
         tutorialUrl: 'tutorials.html?id=login-form',
-        downloadUrl: 'login-form.zip'
+        downloadUrl: 'login-form.zip',
+        icon: 'fa-user-lock'
       },
       {
         id: 'popup-modal',
@@ -274,7 +541,8 @@
         description: 'A fully accessible modal dialog with animations, focus trapping, and keyboard navigation. Customizable and easy to implement.',
         tags: ['HTML', 'CSS', 'JS'],
         tutorialUrl: 'tutorials.html?id=popup-modal',
-        downloadUrl: 'modal.zip'
+        downloadUrl: 'modal.zip',
+        icon: 'fa-window-maximize'
       },
       {
         id: 'dark-mode',
@@ -282,7 +550,8 @@
         description: 'Implement a persistent dark mode toggle that remembers user preference with localStorage and prefers-color-scheme.',
         tags: ['CSS', 'JavaScript'],
         tutorialUrl: 'tutorials.html?id=dark-mode',
-        downloadUrl: 'dark-mode.zip'
+        downloadUrl: 'dark-mode.zip',
+        icon: 'fa-moon'
       },
       {
         id: 'image-gallery',
@@ -290,7 +559,8 @@
         description: 'A mobile-friendly image gallery with lightbox functionality and lazy loading for optimal performance.',
         tags: ['HTML', 'CSS', 'JavaScript'],
         tutorialUrl: 'tutorials.html?id=image-gallery',
-        downloadUrl: 'gallery.zip'
+        downloadUrl: 'gallery.zip',
+        icon: 'fa-images'
       },
       {
         id: 'form-validation',
@@ -298,7 +568,8 @@
         description: 'Comprehensive form validation with real-time feedback using the Constraint Validation API.',
         tags: ['HTML', 'JavaScript'],
         tutorialUrl: 'tutorials.html?id=form-validation',
-        downloadUrl: 'validation.zip'
+        downloadUrl: 'validation.zip',
+        icon: 'fa-check-circle'
       },
       {
         id: 'animated-nav',
@@ -306,7 +577,26 @@
         description: 'A sleek navigation bar with smooth animations and mobile menu toggle.',
         tags: ['HTML', 'CSS', 'JavaScript'],
         tutorialUrl: 'tutorials.html?id=animated-nav',
-        downloadUrl: 'navbar.zip'
+        downloadUrl: 'navbar.zip',
+        icon: 'fa-bars'
+      },
+      {
+        id: 'data-table',
+        title: 'Interactive Data Table',
+        description: 'Feature-rich data table with sorting, pagination, and search functionality.',
+        tags: ['JavaScript', 'CSS'],
+        tutorialUrl: 'tutorials.html?id=data-table',
+        downloadUrl: 'table.zip',
+        icon: 'fa-table'
+      },
+      {
+        id: 'drag-drop',
+        title: 'Drag & Drop Interface',
+        description: 'Implement native drag and drop functionality with visual feedback and event handling.',
+        tags: ['JavaScript', 'HTML5'],
+        tutorialUrl: 'tutorials.html?id=drag-drop',
+        downloadUrl: 'dragdrop.zip',
+        icon: 'fa-arrows-alt'
       }
     ];
 
@@ -323,8 +613,8 @@
     searchButton.addEventListener('click', () => filterSnippets());
 
     function filterSnippets() {
-      const searchTerm = searchInput.value.toLowerCase();
-      if (searchTerm.trim() === '') {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      if (searchTerm === '') {
         renderSnippets(snippets);
         return;
       }
@@ -344,9 +634,11 @@
       if (snippetsToRender.length === 0) {
         snippetsContainer.innerHTML = `
           <div class="no-results">
-            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <div class="no-results-icon">
+              <i class="fas fa-search"></i>
+            </div>
             <h3>No snippets found</h3>
-            <p>Try a different search term</p>
+            <p>Try a different search term or browse our collections</p>
           </div>
         `;
         return;
@@ -356,6 +648,9 @@
         const card = document.createElement('article');
         card.className = 'snippet-card';
         card.innerHTML = `
+          <div class="card-image">
+            <i class="fas ${snippet.icon}"></i>
+          </div>
           <div class="card-header">
             <h3>${snippet.title}</h3>
             <div class="tech-stack">
@@ -387,11 +682,14 @@
         btn.addEventListener('click', function() {
           this.classList.toggle('active');
           const icon = this.querySelector('i');
-          if (this.classList.contains('active')) {
-            icon.classList.replace('far', 'fas');
-          } else {
-            icon.classList.replace('fas', 'far');
-          }
+          icon.classList.toggle('far');
+          icon.classList.toggle('fas');
+          
+          // Add animation
+          this.style.transform = 'scale(1.2)';
+          setTimeout(() => {
+            this.style.transform = 'scale(1)';
+          }, 200);
         });
       });
     }
