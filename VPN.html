@@ -2,63 +2,348 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Code Snippets & Tutorials</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeHub | Snippets & Tutorials</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4cc9f0;
+      --success: #4ad66d;
+      --dark: #212529;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: #f5f7ff;
+      padding: 0;
     }
-    .tutorial-card {
-      background: #fff;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
     }
-    .tutorial-card h3 {
-      margin: 0 0 8px;
-    }
-    .tutorial-card p {
-      margin: 0 0 10px;
-    }
-    .buttons {
-      display: flex;
-      gap: 10px;
-    }
-    .buttons a {
-      padding: 8px 12px;
-      background: #007BFF;
+    
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 14px;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
-    .buttons a.download {
-      background: #28a745;
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      font-weight: 300;
+      opacity: 0.9;
+    }
+    
+    .search-bar {
+      display: flex;
+      width: 300px;
+    }
+    
+    .search-bar input {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      font-size: 1rem;
+    }
+    
+    .search-bar button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0 1rem;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .search-bar button:hover {
+      background-color: #3ab7d8;
+    }
+    
+    .snippets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .snippet-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .snippet-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .card-header h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .tech-stack {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tech-tag {
+      background-color: #e9ecef;
+      color: var(--gray);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .card-footer {
+      padding: 1rem 1.5rem;
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--secondary);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: rgba(67, 97, 238, 0.1);
+    }
+    
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #3ac259;
+    }
+    
+    .favorite-btn {
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+    }
+    
+    .favorite-btn:hover, .favorite-btn.active {
+      color: #ff4757;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+      
+      .search-bar {
+        width: 100%;
+      }
+      
+      .snippets-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>HTML Snippet Tutorials</h1>
-
-  <div class="tutorial-card">
-    <h3>Login Form</h3>
-    <p>Create a basic HTML/CSS login form.</p>
-    <div class="buttons">
-      <a href="tutorials.html?id=login-form">Watch Tutorial</a>
-      <a href="uj.html" download class="download">Download Code</a>
+  <header>
+    <div class="container header-content">
+      <div>
+        <h1>CodeHub</h1>
+        <p class="subtitle">Premium code snippets & tutorials for developers</p>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search snippets...">
+        <button><i class="fas fa-search"></i></button>
+      </div>
     </div>
-  </div>
-
-  <div class="tutorial-card">
-    <h3>Popup Box</h3>
-    <p>Make a popup modal using HTML, CSS, and JS.</p>
-    <div class="buttons">
-      <a href="tutorials.html?id=popup-box">Watch Tutorial</a>
-      <a href="assets/popup-box.html" download class="download">Download Code</a>
+  </header>
+  
+  <main class="container">
+    <div class="snippets-grid">
+      <!-- Snippet Card 1 -->
+      <article class="snippet-card">
+        <div class="card-header">
+          <h3>Modern Login Form</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>A clean, responsive login form with floating labels, validation, and smooth animations. Perfect for modern web applications.</p>
+        </div>
+        <div class="card-footer">
+          <div class="actions">
+            <a href="tutorials.html?id=login-form" class="btn btn-primary">
+              <i class="fas fa-play"></i> Tutorial
+            </a>
+            <a href="login-form.zip" download class="btn btn-outline">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+          <button class="favorite-btn" aria-label="Add to favorites">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+      </article>
+      
+      <!-- Snippet Card 2 -->
+      <article class="snippet-card">
+        <div class="card-header">
+          <h3>Interactive Popup Modal</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JS</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>A fully accessible modal dialog with animations, focus trapping, and keyboard navigation. Customizable and easy to implement.</p>
+        </div>
+        <div class="card-footer">
+          <div class="actions">
+            <a href="tutorials.html?id=popup-modal" class="btn btn-primary">
+              <i class="fas fa-play"></i> Tutorial
+            </a>
+            <a href="modal.zip" download class="btn btn-outline">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+          <button class="favorite-btn" aria-label="Add to favorites">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+      </article>
+      
+      <!-- Snippet Card 3 -->
+      <article class="snippet-card">
+        <div class="card-header">
+          <h3>Dark Mode Toggle</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Implement a persistent dark mode toggle that remembers user preference with localStorage and prefers-color-scheme.</p>
+        </div>
+        <div class="card-footer">
+          <div class="actions">
+            <a href="tutorials.html?id=dark-mode" class="btn btn-primary">
+              <i class="fas fa-play"></i> Tutorial
+            </a>
+            <a href="dark-mode.zip" download class="btn btn-outline">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+          <button class="favorite-btn" aria-label="Add to favorites">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+      </article>
     </div>
-  </div>
+  </main>
+  
+  <footer>
+    <p>&copy; 2023 CodeHub. All rights reserved.</p>
+    <p>Made with <i class="fas fa-heart" style="color: #ff4757;"></i> for developers</p>
+  </footer>
 
+  <script>
+    // Simple favorite functionality
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        const icon = this.querySelector('i');
+        if (this.classList.contains('active')) {
+          icon.classList.replace('far', 'fas');
+        } else {
+          icon.classList.replace('fas', 'far');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
