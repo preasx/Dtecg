@@ -4,12 +4,39 @@
   <meta charset="UTF-8">
   <title>Code Snippets & Tutorials</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
-    .tutorial-card {
-      background: #fff; padding: 15px; margin-bottom: 15px;
-      border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
     }
-    a { color: blue; text-decoration: none; font-weight: bold; }
+    .tutorial-card {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .tutorial-card h3 {
+      margin: 0 0 8px;
+    }
+    .tutorial-card p {
+      margin: 0 0 10px;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .buttons a {
+      padding: 8px 12px;
+      background: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .buttons a.download {
+      background: #28a745;
+    }
   </style>
 </head>
 <body>
@@ -18,13 +45,19 @@
   <div class="tutorial-card">
     <h3>Login Form</h3>
     <p>Create a basic HTML/CSS login form.</p>
-    <a href="tutorial.html?id=login-form">Watch Tutorial</a>
+    <div class="buttons">
+      <a href="tutorial.html?id=login-form">Watch Tutorial</a>
+      <a href="assets/login-form.html" download class="download">Download Code</a>
+    </div>
   </div>
 
   <div class="tutorial-card">
     <h3>Popup Box</h3>
     <p>Make a popup modal using HTML, CSS, and JS.</p>
-    <a href="tutorial.html?id=popup-box">Watch Tutorial</a>
+    <div class="buttons">
+      <a href="tutorial.html?id=popup-box">Watch Tutorial</a>
+      <a href="assets/popup-box.html" download class="download">Download Code</a>
+    </div>
   </div>
 
 </body>
